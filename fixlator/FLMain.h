@@ -1,9 +1,14 @@
 #pragma once
 #include "wx/wx.h"
 #include "wx/string.h"
+#include "ParserEngine.h"
+#include <sstream>
 
 class FLMain : public wxFrame
 {
+private:
+	ParserEngine ParserEngine;
+
 public:
 	FLMain();
 	~FLMain();

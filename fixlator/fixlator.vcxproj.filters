@@ -30,6 +30,9 @@
     <ClInclude Include="hffix_fields.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Printer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLApp.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ParserEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Printer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

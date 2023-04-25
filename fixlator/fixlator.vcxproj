@@ -24,11 +24,13 @@
     <ClInclude Include="hffix.hpp" />
     <ClInclude Include="hffix_fields.hpp" />
     <ClInclude Include="ParserEngine.h" />
+    <ClInclude Include="Printer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FLApp.cpp" />
     <ClCompile Include="FLMain.cpp" />
     <ClCompile Include="ParserEngine.cpp" />
+    <ClCompile Include="Printer.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

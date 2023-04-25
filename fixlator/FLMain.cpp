@@ -18,7 +18,6 @@ FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxPoint(50, 50), wxSiz
 	this->SetSizer(sizer);
 	sizer->Layout();
 
-
 }
 
 FLMain::~FLMain()
@@ -29,6 +28,11 @@ FLMain::~FLMain()
 void FLMain::OnTranslateClicked(wxCommandEvent& evt)
 {
 	std::string raw_std_msg = m_txt_raw->GetValue().ToStdString();
+	std::istringstream isstr(raw_std_msg);
+	int ret = ParserEngine.RawToMaps(isstr);
+	m_txt_raw->AppendText(wxString::Format(wxT("%i"), (int)ParserEngine.messages.size())); // Size currently = 0
+	wxStreamToTextRedirector redirect(m_txt_raw);
+	std::cout << "Hello\n";
 
 	evt.Skip();
 }
