@@ -12,7 +12,7 @@ ParserEngine::~ParserEngine()
 
 int ParserEngine::RawToMaps(std::istream& in_stream)
 // For each FIX message, construct an <int, std::string> map from tags and values in the message
-// Do this immediately since hffix message_readers need to last for less time than the input buffer (in this case our in_stream)
+// Do this immediately since hffix message_readers need to last for less time than in_stream
 {
     std::map<int, std::string> field_dictionary;
     hffix::dictionary_init_field(field_dictionary);
@@ -22,13 +22,15 @@ int ParserEngine::RawToMaps(std::istream& in_stream)
     size_t buffer_length = 0; // The number of bytes read in buffer[].
 
     // Read chunks from stdin until 0 is read or the buffer fills up without finding a complete message.
-    while (in_stream.read(buffer + buffer_length, std::min(sizeof(buffer) - buffer_length, size_t(chunksize))))
+    do
     {
-        std::map<std::tuple<int, std::string>, std::string> msg; // The message map.
+        in_stream.read(buffer + buffer_length, std::min(sizeof(buffer) - buffer_length, size_t(chunksize)));
         buffer_length += in_stream.gcount();
+        std::cout << "in_stream.gcount() = " << in_stream.gcount() << '\n';
         hffix::message_reader reader(buffer, buffer + buffer_length);
         for (; reader.is_complete(); reader = reader.next_message_reader())
         {
+            std::map<std::tuple<int, std::string>, std::string> msg;
             if (reader.is_valid())
             {
                 // A complete message. Read fields out of reader and into map.
@@ -39,7 +41,7 @@ int ParserEngine::RawToMaps(std::istream& in_stream)
                 {
                     for (hffix::message_reader::const_iterator i = reader.begin(); i != reader.end(); i++)
                     {
-                        std::tuple<int, std::string> tag = std::make_tuple(i->tag(), nullptr);
+                        std::tuple<int, std::string> tag = std::make_tuple(i->tag(), "");
                         std::map<int, std::string>::iterator fname = field_dictionary.find(i->tag());
                         if (fname != field_dictionary.end())
                             std::get<1>(tag) = fname->second;
@@ -57,24 +59,25 @@ int ParserEngine::RawToMaps(std::istream& in_stream)
                 }
                 catch (std::exception& ex)
                 {
-                    std::tuple<int, std::string> errTag = std::make_tuple(9999, nullptr);
+                    std::tuple<int, std::string> errTag = std::make_tuple(9999, "");
                     msg[errTag] = std::string(ex.what());
                 }
             }
             else
             {
-                std::tuple<int, std::string> errTag = std::make_tuple(999999, nullptr);
+                std::tuple<int, std::string> errTag = std::make_tuple(999999, "");
                 std::string errString;
                 msg[errTag] = errString.assign("Corrupted FIX msg");
             }
+
+            messages.push_back(msg);
         }
 
         buffer_length = reader.buffer_end() - reader.buffer_begin();
         if (buffer_length > 0) // Then there is an incomplete message at the end of the buffer.
             std::memmove(buffer, reader.buffer_begin(), buffer_length); // Move the partial portion of the incomplete message to buffer[0].
 
-        messages.push_back(msg);
-    }
+    } while (in_stream);
 
     return 0;
 }
