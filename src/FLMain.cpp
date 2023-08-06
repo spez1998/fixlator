@@ -1,7 +1,7 @@
 #include "FLMain.h"
 
 wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
-	EVT_BUTTON(10002, OnTranslateClicked)
+	EVT_BUTTON(10002, FLMain::OnTranslateClicked)
 wxEND_EVENT_TABLE()
 
 FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxPoint(50, 50), wxSize(800, 600))
@@ -29,7 +29,7 @@ void FLMain::OnTranslateClicked(wxCommandEvent& evt)
 {
 	std::string raw_std_msg = m_txt_raw->GetValue().ToStdString();
 	std::istringstream isstr(raw_std_msg);
-	int ret = ParserEngine.RawToMaps(isstr);
-	m_txt_raw->AppendText(wxString::Format(wxT(" %i "), (int)ParserEngine.messages.size()));
+	int ret = f_ParserEngine.RawToMaps(isstr);
+	m_txt_raw->AppendText(wxString::Format(wxT(" %i "), (int)f_ParserEngine.messages.size()));
 	evt.Skip();
 }

@@ -7,7 +7,7 @@
 class FLMain : public wxFrame
 {
 private:
-	ParserEngine ParserEngine;
+	ParserEngine f_ParserEngine;
 
 public:
 	FLMain();
@@ -15,8 +15,8 @@ public:
 
 public:
 	wxTextCtrl *m_txt_raw = nullptr;
-	wxListBox* m_list_res = nullptr;
-	wxButton* m_btn_trans = nullptr;
+	wxListBox *m_list_res = nullptr;
+	wxButton *m_btn_trans = nullptr;
 
 	void OnTranslateClicked(wxCommandEvent& evt);
 
