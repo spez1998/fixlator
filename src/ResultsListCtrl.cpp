@@ -1,19 +1,31 @@
 #include "ResultsListCtrl.h"
 
+int ResultsListCtrl::colId = 0;
+
 ResultsListCtrl::ResultsListCtrl(wxWindow *parent, wxWindowID id)
                 :wxListCtrl(parent, id, wxDefaultPosition, wxDefaultSize, wxLC_REPORT|wxLC_VIRTUAL)
 {
-    // Add first column        
-	col0 = new wxListItem();
-	col0->SetId(0); 
-	col0->SetText( _("Tag") ); 
-	col0->SetWidth(35);
-	InsertColumn(0, *col0); 
+	NewColumn(_("Tag"), 35);
+	NewColumn(_("Value"), 60);
 
-	// Add second column 
-	col1 = new wxListItem();
-	col1->SetId(1); 
-	col1->SetText( _("Value") );
-	col1->SetWidth(60);
-	InsertColumn(1, *col1);
+	wxListItem item;
+	item.SetId(0);
+	item.SetText(_("Hello"));
+	
+	InsertItem( item );
+}
+
+int ResultsListCtrl::NewColumn(wxString name, int width)
+{
+	int ret = EXIT_SUCCESS;
+
+	wxListItem col;
+	col.SetId(colId);
+	std::cout << colId;
+	col.SetText(name);
+	col.SetWidth(width);
+	if ((this->InsertColumn(colId, col)) == -1)
+		ret = EXIT_FAILURE;
+
+	return colId++;
 }
