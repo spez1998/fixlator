@@ -8,9 +8,6 @@
 class FLMain : public wxFrame
 {
 private:
-	ParserEngine f_ParserEngine;
-
-private:
     void SetupResultsListCtrl();
 
 public:
@@ -22,8 +19,8 @@ public:
 	wxTextCtrl *m_txt_raw = nullptr;
 	wxListBox *m_list_res = nullptr;
 	wxButton *m_btn_trans = nullptr;
+	ParserEngine *f_ParserEngine = nullptr;
     ResultsListCtrl *f_ResListCtrl = nullptr;
 
 	wxDECLARE_EVENT_TABLE();
 };
-
