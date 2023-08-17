@@ -22,50 +22,71 @@ class ResultsListCtrl : public wxListCtrl
 
 		virtual wxString OnGetItemText(long index, long colId) const wxOVERRIDE
 		{
+			/*
 			std::map message = f_ParserEngine->messages[index];
-			std::string fixspec;
-			std::string timestamp;
-			std::string msgtype;
+		
+			std::tuple<int, std::string> timestamp = std::make_tuple(hffix::tag::SendingTime,"SendingTime");
+			std::tuple<int, std::string> fixspec = std::make_tuple(hffix::tag::BeginString,"BeginString");
+			std::tuple<int, std::string> msgtype = std::make_tuple(hffix::tag::Currency,"Currency");
 
-			/* TODO: A message_reader provides an iterator for a buffer of FIX msgs,
-				     so long as the buffer outlives the message reader. How do I save
-					 the initial buffer (or chunks of the initial buffer) in the message_reader format? */
-			hffix::message_reader msg = f_ParserEngine->messages_hffix[index];
-			
-			hffix::message_reader::const_iterator i = msg.begin();
- 
-			if (msg.find_with_hint(hffix::tag::MsgType, i))
-				timestamp = i++->value().as_string();
-			
-			if (msg.find_with_hint(hffix::tag::BeginString, i))
-				fixspec = i++->value().as_string();
-
-			if (msg.find_with_hint(hffix::tag::BeginString, i))
-				msgtype = i++->value().as_string();
-			
 			switch (colId)
 			{
 				case 0:
-					return timestamp;
+					return message[timestamp];
 				case 1:
-					return fixspec;
+					return message[fixspec];
 				case 2:
-					return msgtype;
+					return message[msgtype];
 				default:
 					return "";
 			}
+			*/
+			
+			// /*
+			HffixMsg msg = f_ParserEngine->messages_hffix[index];
+			hffix::message_reader reader(msg.buf, msg.size);
+			hffix::message_reader::const_iterator i = reader.begin();
+
+			std::cout << std::endl;
+			if (reader.is_valid()) {
+				std::cout << "reader is valid" << std::endl;
+			}
+			//std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> tp;
+			switch (colId)
+			{
+				case 0:
+					{
+						return wxString::FromUTF8(reader.prefix_begin(), reader.prefix_size());
+					}
+				case 1:
+					{
+						reader.find_with_hint(hffix::tag::Currency, i);
+						return _(i->value().as_char());
+					}
+				case 2:
+					{
+						reader.find_with_hint(hffix::tag::BeginString, i);
+						int test = i->value().as_int<int>();
+						std::cout << test << '\n';
+						return wxString::Format(wxT("%i"),test);
+					}
+				default:
+					return "";
+			}
+		
+		//*/
 		}
 
 		void RefreshAfterUpdate()
 		{
-			this->SetItemCount(f_ParserEngine->messages.size());
+			this->SetItemCount(f_ParserEngine->messages_hffix.size());
 			this->Refresh();
 		}
 	
 	public:
 		wxListItem *col0 = nullptr;
 		wxListItem *col1 = nullptr;
-		ParserEngine* f_ParserEngine = nullptr;
+		ParserEngine* f_ParserEngine;
 
 	private:
 		static int colId;

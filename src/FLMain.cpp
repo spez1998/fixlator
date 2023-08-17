@@ -39,14 +39,14 @@ void FLMain::OnTranslateClicked(wxCommandEvent& evt)
 	std::istringstream isstr(raw_std_msg);
 	f_ParserEngine = new ParserEngine;
 	f_ResListCtrl->f_ParserEngine = f_ParserEngine;
-	int ret = this->f_ParserEngine->RawToMaps(isstr);
-	ret = this->f_ParserEngine->TextToHffixMsgs(isstr);
+	//int ret = this->f_ParserEngine->RawToMaps(isstr);
+	int ret = this->f_ParserEngine->TextToHffixMsgs(isstr);
 
     // 'example' is the first tag of the first message
-	std::tuple example = f_ParserEngine->messages[0].begin()->first;
-	int tag = std::get<0>(example);
-
+	//std::tuple example = f_ParserEngine->messages[0].begin()->first;
+	//int tag = std::get<0>(example);
+	
 	f_ResListCtrl->RefreshAfterUpdate();
-
+	std::cout << '\n' << std::endl;
     evt.Skip();
 }

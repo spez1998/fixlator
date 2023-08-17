@@ -9,17 +9,19 @@
 #include <map>
 #include <vector>
 #include <tuple>
+#include <chrono>
+#include <format>
 
-class HffixMsg
+struct HffixMsg
 {
-public:
-	void* buf;
-	hffix::message_reader msg;
-	HffixMsg();
+	char* buf;
+	size_t size;
 	/*
 		Looks like I'll have to split up / malloc chunks of my input buffer to instances of this
 		class, which have associated with them a message_reader
 	*/
+	HffixMsg(size_t size);
+	~HffixMsg();
 };
 
 class ParserEngine
@@ -34,7 +36,7 @@ public:
 	std::vector< std::map< std::tuple<int,std::string> , std::string>> messages;
 
 	// Isn't it worth just using the nice data structure provided to us?
-	std::vector<hffix::message_reader> messages_hffix;
+	std::vector<HffixMsg> messages_hffix;
 
 public:
 	ParserEngine();

@@ -97,15 +97,23 @@ int ParserEngine::TextToHffixMsgs(std::istream& in_stream)
     do
     {
         in_stream.read(buffer + buffer_length, std::min(sizeof(buffer) - buffer_length, size_t(chunksize)));
-        buffer_length += in_stream.gcount();
-        std::cout << "in_stream.gcount() = " << in_stream.gcount() << '\n';
+        auto gcount = in_stream.gcount();
+        buffer_length += gcount;
+        std::cout << "in_stream.gcount() = " << in_stream.gcount() << '\n' << std::endl;
         
         hffix::message_reader reader(buffer, buffer + buffer_length);
+        
         for (; reader.is_complete(); reader = reader.next_message_reader())
         {
             if (reader.is_valid())
             {
-                messages_hffix.push_back(reader);
+                std::cout << "reader.buffer_size() = " << reader.buffer_size() << std::endl;
+                std::cout << "gcount * sizeof(char) = " << gcount * sizeof(char) << std::endl;
+                std::cout << "reader.message_size() = " << reader.message_size() << std::endl;
+                HffixMsg msg(reader.message_size());
+                //std::memmove(msg.buf, reader.message_begin(), reader.message_size());
+                memcpy(msg.buf, reader.message_begin(), reader.message_size());
+                messages_hffix.push_back(msg);
             }
         }
 
@@ -118,7 +126,14 @@ int ParserEngine::TextToHffixMsgs(std::istream& in_stream)
     return 0;
 }
 
-/*HffixMsg::HffixMsg()
+HffixMsg::HffixMsg(size_t size)
 {
-    buf = malloc()
-}*/
+    buf = (char*) malloc(size);
+    size = size;
+}
+
+HffixMsg::~HffixMsg()
+{
+    //free(buf);
+    ;
+}
