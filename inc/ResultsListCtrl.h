@@ -15,66 +15,51 @@ class ResultsListCtrl : public wxListCtrl
 			this->AppendColumn("Timestamp");
 			this->AppendColumn("Spec version");
 			this->AppendColumn("Message type");
+			this->AppendColumn("Currency");
 			this->SetColumnWidth(0, 80);
 			this->SetColumnWidth(1, 120);
-			this->SetColumnWidth(2, 600);
+			this->SetColumnWidth(2, 120);
+			this->SetColumnWidth(3, 120);
 		}
 
 		virtual wxString OnGetItemText(long index, long colId) const wxOVERRIDE
 		{
-			/*
-			std::map message = f_ParserEngine->messages[index];
-		
-			std::tuple<int, std::string> timestamp = std::make_tuple(hffix::tag::SendingTime,"SendingTime");
-			std::tuple<int, std::string> fixspec = std::make_tuple(hffix::tag::BeginString,"BeginString");
-			std::tuple<int, std::string> msgtype = std::make_tuple(hffix::tag::Currency,"Currency");
-
-			switch (colId)
-			{
-				case 0:
-					return message[timestamp];
-				case 1:
-					return message[fixspec];
-				case 2:
-					return message[msgtype];
-				default:
-					return "";
-			}
-			*/
-			
-			// /*
 			HffixMsg msg = f_ParserEngine->messages_hffix[index];
 			hffix::message_reader reader(msg.buf, msg.size);
 			hffix::message_reader::const_iterator i = reader.begin();
 
 			std::cout << std::endl;
 			if (reader.is_valid()) {
+				// TODO: Fix wxCommand invocation when clicking anywhere in the boxes
 				std::cout << "reader is valid" << std::endl;
 			}
-			//std::chrono::time_point<std::chrono::system_clock, std::chrono::milliseconds> tp;
+
 			switch (colId)
 			{
 				case 0:
-					{
-						return wxString::FromUTF8(reader.prefix_begin(), reader.prefix_size());
-					}
+				{
+					reader.find_with_hint(hffix::tag::SendingTime, i);
+					return _(i->value().as_string());
+				}
 				case 1:
-					{
-						reader.find_with_hint(hffix::tag::Currency, i);
-						return _(i->value().as_char());
-					}
+					return wxString::FromUTF8(reader.prefix_begin(), reader.prefix_size());
 				case 2:
-					{
-						reader.find_with_hint(hffix::tag::BeginString, i);
-						int test = i->value().as_int<int>();
-						std::cout << test << '\n';
-						return wxString::Format(wxT("%i"),test);
-					}
+				{
+					//reader.find_with_hint(hffix::tag::BeginString, i);
+					//int test = i->value().as_int<int>();
+					//std::cout << test << '\n';
+					//return wxString::Format(wxT("%i"),test);
+					reader.find_with_hint(hffix::tag::MsgType, i);
+					return _(i->value().as_char());
+				}
+				case 3:
+				{
+					reader.find_with_hint(hffix::tag::Currency, i);
+					return _(i->value().as_string());
+				}
 				default:
 					return "";
 			}
-		
-		//*/
 		}
 
 		void RefreshAfterUpdate()
