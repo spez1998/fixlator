@@ -5,11 +5,7 @@ ParserEngine::ParserEngine()
     ;
 }
 
-ParserEngine::~ParserEngine()
-{
-    ;
-}
-
+/*
 int ParserEngine::RawToMaps(std::istream& in_stream)
 // For each FIX message, construct an <int, std::string> map from tags and values in the message
 // Do this immediately since hffix message_readers need to last for less time than in_stream
@@ -81,7 +77,7 @@ int ParserEngine::RawToMaps(std::istream& in_stream)
 
     return 0;
 }
-
+*/
 int ParserEngine::TextToHffixMsgs(std::istream& in_stream)
 // For each FIX message, construct an <int, std::string> map from tags and values in the message
 // Do this immediately since hffix message_readers need to last for less time than in_stream
@@ -130,9 +126,4 @@ HffixMsg::HffixMsg(size_t size)
 {
     buf = (char*) malloc(size);
     size = size;
-}
-
-HffixMsg::~HffixMsg()
-{
-    ;
 }

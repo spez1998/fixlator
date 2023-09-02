@@ -6,17 +6,13 @@ wxEND_EVENT_TABLE()
 
 FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxPoint(50, 50), wxSize(800, 600))
 {
-	std::cout << "Wehre is faul 0";
 	SetBackgroundColour(wxColour("#ECECEC"));
-	std::cout << "Wehre is faul 1";
 	wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
 	m_txt_raw = new wxTextCtrl(this, 10001, "Input", wxPoint(10, 70), wxSize(300, 30));
 	m_btn_trans = new wxButton(this, 10002, "Translate", wxPoint(75,150));
 
     f_ResListCtrl = new ResultsListCtrl(this, 10003, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
-
-	std::cout << "Wehre is faul 2";
 
 	sizer->Add(m_txt_raw, 1, wxEXPAND | wxALL);
 	sizer->Add(m_btn_trans, 0);

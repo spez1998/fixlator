@@ -1,17 +1,21 @@
 #include "ResultsListCtrl.h"
 
+int ResultsListCtrl::colId = 0;
+
 ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint &pos, 
                                 const wxSize &size, long style, const wxString &name)
 	: wxListCtrl(parent, id, pos, size, wxLC_REPORT | wxLC_VIRTUAL)
 {
-    this->AppendColumn("Timestamp");
-    this->AppendColumn("Spec version");
-    this->AppendColumn("Message type");
-    this->AppendColumn("Currency");
-    this->SetColumnWidth(0, 80);
-    this->SetColumnWidth(1, 120);
-    this->SetColumnWidth(2, 120);
-    this->SetColumnWidth(3, 120);
+    AddColumn("Timestamp", 80);
+    AddColumn("Spec version", 120);
+    AddColumn("Message type", 120);
+    AddColumn("Currency", 120);
+}
+
+void ResultsListCtrl::AddColumn(const char* name, int width)
+{
+    colId = this->AppendColumn(name);
+    this->SetColumnWidth(colId, width);
 }
 
 void ResultsListCtrl::RefreshAfterUpdate()
@@ -24,7 +28,7 @@ wxString ResultsListCtrl::OnGetItemText(long index, long colId) const
 {
     HffixMsg msg = f_ParserEngine->messages_hffix[index];
     hffix::message_reader reader(msg.buf, msg.size);
-    hffix::message_reader::const_iterator i = reader.begin();
+    auto i = reader.begin();
 
     std::cout << std::endl;
     if (reader.is_valid()) {

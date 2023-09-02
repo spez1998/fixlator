@@ -12,13 +12,12 @@ class ResultsListCtrl : public wxListCtrl
 						const wxSize &size, long style, const wxString &name);
 		virtual wxString OnGetItemText(long index, long colId) const wxOVERRIDE;
 		void RefreshAfterUpdate();
+		void AddColumn(const char* name, int width);
+		inline int getColId() { return colId; };
 	
 	public:
-		wxListItem *col0 = nullptr;
-		wxListItem *col1 = nullptr;
 		ParserEngine* f_ParserEngine;
 
 	private:
 		static int colId;
-		
 };
