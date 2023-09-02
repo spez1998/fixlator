@@ -134,6 +134,5 @@ HffixMsg::HffixMsg(size_t size)
 
 HffixMsg::~HffixMsg()
 {
-    //free(buf);
     ;
 }
