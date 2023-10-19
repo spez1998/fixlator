@@ -1,25 +1,31 @@
 #include "FLMain.h"
+#include <wx/gbsizer.h>
+#include <wx/string.h>
 
 wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
 	EVT_BUTTON(10002, FLMain::OnTranslateClicked)
 wxEND_EVENT_TABLE()
 
-FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxPoint(50, 50), wxSize(800, 600))
+FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
 {
 	SetBackgroundColour(wxColour("#ECECEC"));
-	wxBoxSizer *sizer = new wxBoxSizer(wxHORIZONTAL);
-	m_txt_raw = new wxTextCtrl(this, 10001, "Input", wxPoint(10, 70), wxSize(300, 30));
-	m_btn_trans = new wxButton(this, 10002, "Translate", wxPoint(75,150));
-
+	
+	m_txt_raw = new wxTextCtrl(this, 10001, "Input");
+	m_btn_trans = new wxButton(this, 10002, "Translate");
     f_ResListCtrl = new ResultsListCtrl(this, 10003, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
 
-	sizer->Add(m_txt_raw, 1, wxEXPAND | wxALL);
-	sizer->Add(m_btn_trans, 0);
-	sizer->Add(f_ResListCtrl, 1, wxEXPAND | wxALL);
+	wxGridBagSizer *gridSizer = new wxGridBagSizer(0, 0);
+	gridSizer->SetFlexibleDirection(wxBOTH);
+	gridSizer->AddGrowableRow(0);
+	gridSizer->AddGrowableRow(2);
+	gridSizer->AddGrowableCol(0);
+	gridSizer->Add(m_txt_raw, wxGBPosition(0, 0), wxGBSpan(1, 2), wxEXPAND | wxALL);
+	gridSizer->Add(m_btn_trans, wxGBPosition(1, 0), wxDefaultSpan);
+	gridSizer->Add(f_ResListCtrl, wxGBPosition(2, 0), wxDefaultSpan, wxEXPAND | wxALL);
 
-	this->SetSizer(sizer);
-	sizer->Layout();
+	this->SetSizer(gridSizer);
+	gridSizer->Layout();
 }
 
 FLMain::~FLMain()
@@ -27,22 +33,14 @@ FLMain::~FLMain()
 
 }
 
-void FLMain::OnTranslateClicked(wxCommandEvent& evt)
+void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 {
 	// TODO: Fix segfault on invalid input
-
-	std::string raw_std_msg = m_txt_raw->GetValue().ToStdString();
-	std::istringstream isstr(raw_std_msg);
+	std::string rawIn = m_txt_raw->GetValue().ToStdString();
+	const char *newrawInput = rawIn.c_str();
 	f_ParserEngine = new ParserEngine;
-	f_ResListCtrl->f_ParserEngine = f_ParserEngine;
-	//int ret = this->f_ParserEngine->RawToMaps(isstr);
-	int ret = this->f_ParserEngine->TextToHffixMsgs(isstr);
-
-    // 'example' is the first tag of the first message
-	//std::tuple example = f_ParserEngine->messages[0].begin()->first;
-	//int tag = std::get<0>(example);
-	
+	f_ResListCtrl->pe = f_ParserEngine;
+	int ret = this->f_ParserEngine->TextToHffixMsgs(newrawInput);
 	f_ResListCtrl->RefreshAfterUpdate();
-	std::cout << '\n' << std::endl;
     evt.Skip();
 }

@@ -1,10 +1,7 @@
 #pragma once
-
-#include "wx/wx.h"
-#include "wx/string.h"
 #include "ResultsListCtrl.h"
 #include "ParserEngine.h"
-#include <sstream>
+#include <wx/wx.h>
 
 class FLMain : public wxFrame
 {
@@ -14,7 +11,7 @@ private:
 public:
 	FLMain();
 	~FLMain();
-	void OnTranslateClicked(wxCommandEvent& evt);
+	void OnTranslateClicked(wxCommandEvent &evt);
 
 public:
 	wxTextCtrl *m_txt_raw = nullptr;
