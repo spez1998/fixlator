@@ -1,5 +1,6 @@
 #include "ResultsListCtrl.h"
 #include "wx/string.h"
+#include <map>
 
 int ResultsListCtrl::colId = 0;
 
@@ -27,7 +28,10 @@ void ResultsListCtrl::RefreshAfterUpdate()
 
 wxString ResultsListCtrl::OnGetItemText(long index, long colId) const
 {
-    hffix::message_reader reader(pe->msgLocs[index], strlen(pe->msgLocs[index])); 
+    hffix::message_reader reader(pe->msgLocs[index], strlen(pe->msgLocs[index]));
+    std::map<std::string, std::string> message_dictionary;
+    hffix::dictionary_init_message(message_dictionary);
+
     if (reader.is_valid())
     {
         auto i = reader.begin();
@@ -44,7 +48,15 @@ wxString ResultsListCtrl::OnGetItemText(long index, long colId) const
             case 2:
             {
                 reader.find_with_hint(hffix::tag::MsgType, i);
-                return _(i->value().as_char());
+                
+                std::string result;
+                std::map<std::string, std::string>::iterator mname = message_dictionary.find(std::string(i->value().begin(), i->value().end()));
+                result = mname->first;
+                if (mname != message_dictionary.end())
+                    result += mname->second;
+
+                return _(result);
+                
             }
             case 3:
             {
@@ -57,7 +69,15 @@ wxString ResultsListCtrl::OnGetItemText(long index, long colId) const
     }
     else
     {
-        const char *error = "ERROR!";
-        return wxString::FromAscii(error);
+        switch (colId)
+        {
+            case 0:
+            {
+                const char *error = "ERROR!";
+                return wxString::FromAscii(error);
+            }
+            default:
+                return "";
+        }
     }
 }

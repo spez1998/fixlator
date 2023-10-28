@@ -4,13 +4,14 @@
 
 wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
 	EVT_BUTTON(10002, FLMain::OnTranslateClicked)
+	//EVT_MENU(LIST_SORT, FLMain::OnSpecSort)
 wxEND_EVENT_TABLE()
 
 FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
 {
 	SetBackgroundColour(wxColour("#ECECEC"));
 	
-	m_txt_raw = new wxTextCtrl(this, 10001, "Input");
+	m_txt_raw = new wxTextCtrl(this, 10001, "Input", wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
 	m_btn_trans = new wxButton(this, 10002, "Translate");
     f_ResListCtrl = new ResultsListCtrl(this, 10003, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
@@ -44,3 +45,15 @@ void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 	f_ResListCtrl->RefreshAfterUpdate();
     evt.Skip();
 }
+
+/*
+void FLMain::OnSpecSort(wxCommandEvent &evt)
+{
+	f_ResListCtrl->SortItems(SpecCompFn, 0);
+}
+
+int wxCALLBACK SpecCompFn(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData)
+{
+
+}
+*/
