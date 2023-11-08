@@ -26,6 +26,8 @@ void ResultsListCtrl::RefreshAfterUpdate()
     this->Refresh();
 }
 
+// Bind(wxEVT_LIST_COL_CLICK, &MyListCtrl::OnColClick, this); --> somewhere here?
+
 wxString ResultsListCtrl::OnGetItemText(long index, long colId) const
 {
     hffix::message_reader reader(pe->msgLocs[index], strlen(pe->msgLocs[index]));

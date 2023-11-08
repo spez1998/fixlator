@@ -36,7 +36,7 @@ FLMain::~FLMain()
 
 void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 {
-	// TODO: Fix segfault on invalid input
+	// TODO: Fix segfault on invalid input (?)
 	std::string rawIn = m_txt_raw->GetValue().ToStdString();
 	const char *newrawInput = rawIn.c_str();
 	f_ParserEngine = new ParserEngine;
@@ -46,7 +46,7 @@ void FLMain::OnTranslateClicked(wxCommandEvent &evt)
     evt.Skip();
 }
 
-/*
+
 void FLMain::OnSpecSort(wxCommandEvent &evt)
 {
 	f_ResListCtrl->SortItems(SpecCompFn, 0);
@@ -54,6 +54,9 @@ void FLMain::OnSpecSort(wxCommandEvent &evt)
 
 int wxCALLBACK SpecCompFn(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData)
 {
-
+	// 1. Write a fcn to get the memory locations of each msg
+	// 2. Write a fcn to compare the necessary field encodings
+	if(item1<item2) return -1;
+	if(item1>item2) return 1; 
+	if(item1==item2) return 0;
 }
-*/
