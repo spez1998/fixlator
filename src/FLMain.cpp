@@ -46,12 +46,6 @@ void FLMain::OnTranslateClicked(wxCommandEvent &evt)
     evt.Skip();
 }
 
-
-void FLMain::OnSpecSort(wxCommandEvent &evt)
-{
-	f_ResListCtrl->SortItems(SpecCompFn, 0);
-}
-
 int wxCALLBACK SpecCompFn(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData)
 {
 	// 1. Write a fcn to get the memory locations of each msg

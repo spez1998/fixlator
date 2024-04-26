@@ -18,7 +18,7 @@ public:
 	wxListBox *m_list_res = nullptr;
 	wxButton *m_btn_trans = nullptr;
 	ParserEngine *f_ParserEngine = nullptr;
-    ResultsListCtrl *f_ResListCtrl = nullptr;
+        ResultsListCtrl *f_ResListCtrl = nullptr;
 
 	wxDECLARE_EVENT_TABLE();
 };
