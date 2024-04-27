@@ -4,10 +4,11 @@ set(TARGET_ROOT ${CMAKE_SOURCE_DIR}/src)
 list(APPEND SOURCES
     PRIVATE
         FLApp.cpp
-	FLMain.cpp
-	ParserEngine.cpp
-	Printer.cpp
-	ResultsListCtrl.cpp
+	    FLMain.cpp
+	    ParserEngine.cpp
+	    Printer.cpp
+	    ResultsListCtrl.cpp
+        ClearCurrentMsgsDialog.cpp
 )
 
 add_library(hffix INTERFACE)

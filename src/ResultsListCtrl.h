@@ -4,7 +4,7 @@
 #include "wx/listctrl.h"
 #include "ParserEngine.h"
 
-class ResultsListCtrl : public wxListCtrl
+class ResultsListCtrl: public wxListCtrl
 {
 	public:
 		ResultsListCtrl(wxWindow *parent, wxWindowID id, const wxPoint &pos,
@@ -12,7 +12,8 @@ class ResultsListCtrl : public wxListCtrl
 		virtual wxString OnGetItemText(long index, long colId) const wxOVERRIDE;
 		void RefreshAfterUpdate();
 		void AddColumn(const char *name, int width);
-		inline int getColId() { return colId; };
+		inline int GetColId() { return colId; };
+		// int SortColumnSpec()
 	
 	public:
 		ParserEngine *pe;

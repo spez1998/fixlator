@@ -15,6 +15,11 @@ FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxD
 	m_btn_trans = new wxButton(this, 10002, "Translate");
     f_ResListCtrl = new ResultsListCtrl(this, 10003, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
+	f_ParserEngine = new ParserEngine;
+	f_ResListCtrl->pe = f_ParserEngine;
+
+	f_ClearCurrentMsgsDialog = new ClearCurrentMsgsDialog(this, "Are you sure you want to clear the current messages?",
+															"Clear current messages", wxYES_NO | wxICON_QUESTION);
 
 	wxGridBagSizer *gridSizer = new wxGridBagSizer(0, 0);
 	gridSizer->SetFlexibleDirection(wxBOTH);
@@ -37,12 +42,19 @@ FLMain::~FLMain()
 void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 {
 	// TODO: Fix segfault on invalid input (?)
-	std::string rawIn = m_txt_raw->GetValue().ToStdString();
-	const char *newrawInput = rawIn.c_str();
-	f_ParserEngine = new ParserEngine;
-	f_ResListCtrl->pe = f_ParserEngine;
-	int ret = this->f_ParserEngine->TextToHffixMsgs(newrawInput);
+	std::string rawInputStr = m_txt_raw->GetValue().ToStdString();
+	const char *rawInputChars = rawInputStr.c_str();
+	if (this->f_ParserEngine->rawBuf != nullptr)
+	{
+		int confirm = f_ClearCurrentMsgsDialog->ShowModal();
+		if (confirm == wxID_NO)
+			return;
+	}
+
+	this->f_ParserEngine->ClearStoredMsgs();
+	int ret = this->f_ParserEngine->TextToHffixMsgs(rawInputChars);
 	f_ResListCtrl->RefreshAfterUpdate();
+
     evt.Skip();
 }
 

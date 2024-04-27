@@ -11,7 +11,12 @@
 
 ParserEngine::ParserEngine()
 {
-    partialMsg = nullptr;
+    ;
+}
+
+ParserEngine::~ParserEngine()
+{
+    delete[] rawBuf;
 }
 
 int ParserEngine::TextToHffixMsgs(const char *userInput)
@@ -20,22 +25,35 @@ int ParserEngine::TextToHffixMsgs(const char *userInput)
     size_t usize = strlen(userInput);
 
     /* Copy userInput to the heap */
-    rawBuf = (char *)malloc(usize);
-    memcpy(rawBuf, userInput, usize);
-    
+    rawBuf = new char[usize];
+    std::memcpy(rawBuf, userInput, usize);
+
     /* Find the start of each msg inside the raw text */
     hffix::message_reader reader(rawBuf, strlen(rawBuf));
     for(; reader.is_complete(); reader = reader.next_message_reader())
     {
             msgLocs.push_back(reader.buffer_begin());
     }
- 
+
     buffer_length = reader.buffer_end() - reader.buffer_begin();
     
     /* Store pointer to incomplete message separately for special handling */
     if (buffer_length > 0)
     {
         partialMsg = reader.buffer_begin(); 
+    }
+
+    return 0;
+}
+
+int ParserEngine::ClearStoredMsgs()
+{
+    if (rawBuf != nullptr)
+    {
+        delete[] rawBuf;
+        rawBuf = nullptr;
+        msgLocs.clear();
+        partialMsg = nullptr;
     }
 
     return 0;
