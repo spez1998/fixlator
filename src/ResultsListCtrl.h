@@ -49,14 +49,18 @@ class ResultsListCtrl: public wxListCtrl
 		void AddColumn(const char *name, int width);
 
 		/**
-		 * \brief Gets the column id.
+		 * \brief Gets the column ID.
 		 * 
-		 * \return The column id.
+		 * \return The column ID.
 		 */
 		inline int GetColId() { return col_id; };
 
+		/**
+		 * \brief Define sorting algorithms for each column
+		 * 
+		 * \param col_id The column ID.
+		 */
 		void SortByColumn(int col_id);
-		// int SortColumnSpec()
 	
 	public:
 		/**
@@ -67,12 +71,16 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 		std::shared_ptr<RawDataHandler> rawdatahandler_main;
 
+		/**
+		 * \brief Column names enumeration.
+		 * 
+		 */
 		enum ColumnNames
 		{
 			TIMESTAMP,
 			SPEC_VERSION,
 			MESSAGE_TYPE,
-			CURRENCY
+			CURRENCY,
 		};
 
 	private:

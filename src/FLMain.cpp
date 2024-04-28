@@ -7,8 +7,7 @@ wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
 	//EVT_MENU(LIST_SORT, FLMain::OnSpecSort)
 wxEND_EVENT_TABLE()
 
-FLMain::FLMain()
-	: wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
+FLMain::FLMain(): wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
 {
 	SetBackgroundColour(wxColour("#ECECEC"));
 	
@@ -54,13 +53,4 @@ void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 	listctrl_results->RefreshAfterUpdate();
 
     evt.Skip();
-}
-
-int wxCALLBACK SpecCompFn(wxIntPtr item1, wxIntPtr item2, wxIntPtr sortData)
-{
-	// 1. Write a fcn to get the memory locations of each msg
-	// 2. Write a fcn to compare the necessary field encodings
-	if(item1<item2) return -1;
-	if(item1>item2) return 1; 
-	if(item1==item2) return 0;
 }
