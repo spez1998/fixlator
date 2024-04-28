@@ -8,7 +8,6 @@ FLApp::FLApp()
 
 FLApp::~FLApp()
 {
-
 }
 
 bool FLApp::OnInit()

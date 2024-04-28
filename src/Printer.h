@@ -1,5 +1,5 @@
 #pragma once
-#include "hffix.hpp"
+
 #include <iostream>
 #include <fstream>
 #include <cstdio>
@@ -7,6 +7,8 @@
 #include <cstring>
 #include <map>
 #include <vector>
+
+#include "hffix.hpp"
 
 class Printer
 {

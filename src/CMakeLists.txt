@@ -5,10 +5,9 @@ list(APPEND SOURCES
     PRIVATE
         FLApp.cpp
 	    FLMain.cpp
-	    ParserEngine.cpp
+	    RawDataHandler.cpp
 	    Printer.cpp
 	    ResultsListCtrl.cpp
-        ClearCurrentMsgsDialog.cpp
 )
 
 add_library(hffix INTERFACE)
