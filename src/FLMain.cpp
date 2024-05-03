@@ -7,7 +7,8 @@ wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
 	//EVT_MENU(LIST_SORT, FLMain::OnSpecSort)
 wxEND_EVENT_TABLE()
 
-FLMain::FLMain(): wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
+FLMain::FLMain()
+	: wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
 {
 	SetBackgroundColour(wxColour("#ECECEC"));
 	
