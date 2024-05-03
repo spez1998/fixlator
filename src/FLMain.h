@@ -51,7 +51,7 @@ class FLMain: public wxFrame
 		/**
 		 * \brief Some objects used to display useful things.
 		 *
-		 * These objects are memory-managed by wxwidgets and can be raw pointers.
+		 * These objects are memory-managed by wxwidgets so can be raw pointers.
 		 */
 		wxTextCtrl *textctrl_inputbox = nullptr;
 		wxButton *button_translate = nullptr;

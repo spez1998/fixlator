@@ -78,9 +78,9 @@ class ResultsListCtrl: public wxListCtrl
 		enum ColumnNames
 		{
 			TIMESTAMP,
-			SPEC_VERSION,
+			SENDER,
+			TARGET,
 			MESSAGE_TYPE,
-			CURRENCY,
 		};
 
 	private:
@@ -94,6 +94,8 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 		static constexpr const char *invalidDataText = "Error: Invalid data";
 
-
+		/**
+		 * \brief The sort order for column data in the list control.
+		 */
 		bool sort_ascending;
 };
