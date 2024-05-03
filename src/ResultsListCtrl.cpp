@@ -1,3 +1,5 @@
+#include <chrono>
+#include <date/date.h>
 #include <map>
 
 #include <wx/string.h>
@@ -52,9 +54,21 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
         {
             case TIMESTAMP:
                 if (reader.find_with_hint(hffix::tag::SendingTime, i))
-                    return _(i->value().as_string());
+                {
+                    std::chrono::time_point<std::chrono::system_clock> timestamp;
+                    wxString timestamp_format, original_path = usersettings_main->GetPath();
+                    usersettings_main->SetPath("/options");
+                    if (!(usersettings_main->Read("timestamp_format", &timestamp_format)))
+                        timestamp_format = "%Y%m%d-%H:%M:%S";
+
+                    usersettings_main->SetPath(original_path);
+                    i->value().as_timestamp(timestamp);
+                    return _(date::format(timestamp_format.ToStdString(), timestamp));
+                }
                 else
+                {
                     return _("N/A");
+                }
             
             case SENDER:
                 if (reader.find_with_hint(hffix::tag::SenderCompID, i))

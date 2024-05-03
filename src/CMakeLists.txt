@@ -8,6 +8,7 @@ list(APPEND SOURCES
 	    RawDataHandler.cpp
 	    Printer.cpp
 	    ResultsListCtrl.cpp
+        UserSettings.cpp
 )
 
 add_library(hffix INTERFACE)

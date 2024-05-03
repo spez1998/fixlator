@@ -13,6 +13,7 @@
 
 #include "ResultsListCtrl.h"
 #include "RawDataHandler.h"
+#include "UserSettings.h"
 
 /**
  * \brief Represents the main frame within the application.
@@ -70,6 +71,11 @@ class FLMain: public wxFrame
 		 * used by member objects of this class.
 		*/
 		std::shared_ptr<RawDataHandler> rawdatahandler_main;
+
+		/**
+		 * \brief  User settings class
+		*/
+		std::shared_ptr<UserSettings> usersettings_main;
 
 		/** 
 		 * \brief The event table for this class.

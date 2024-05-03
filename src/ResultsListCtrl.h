@@ -4,6 +4,7 @@
 #include <wx/listctrl.h>
 
 #include "RawDataHandler.h"
+#include "UserSettings.h"
 
 /**
  * \brief The results list control class.
@@ -70,6 +71,14 @@ class ResultsListCtrl: public wxListCtrl
 		 * FLMain.cpp.
 		 */
 		std::shared_ptr<RawDataHandler> rawdatahandler_main;
+
+		/*
+		 * \brief The main user settings object.
+		 * 
+		 * This is a shared pointer to the user settings object instantiated in
+		 * FLMain.cpp.
+		 */
+		std::shared_ptr<UserSettings> usersettings_main;
 
 		/**
 		 * \brief Column names enumeration.
