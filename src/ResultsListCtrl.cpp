@@ -2,8 +2,8 @@
 #include <date/date.h>
 #include <map>
 
-#include <wx/string.h>
 #include <hffix.hpp>
+#include <wx/string.h>
 
 #include "ResultsListCtrl.h"
 
@@ -19,6 +19,8 @@ ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint 
     AddColumn("Sender", 120);
     AddColumn("Target", 120);
     AddColumn("Message type", 120);
+
+    this->SetFont(wxFont(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
     this->Bind(wxEVT_LIST_COL_CLICK, [this](wxListEvent &evt)
     {
