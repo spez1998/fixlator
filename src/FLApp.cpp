@@ -12,7 +12,7 @@ FLApp::~FLApp()
 
 bool FLApp::OnInit()
 {
-	m_frame1 = new FLMain();
-	m_frame1->Show();
+	flmain = new FLMain();
+	flmain->Show();
 	return true;
 }

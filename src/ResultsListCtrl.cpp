@@ -15,10 +15,10 @@ ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint 
 {
     /* This must be done in the same order as the ColumnNames enum */
     // TODO: Define in a header along with the enum?
-    AddColumn("Timestamp", 80);
-    AddColumn("Sender", 120);
-    AddColumn("Target", 120);
-    AddColumn("Message type", 120);
+    AddColumn("Timestamp", SIZE_COL_TIMESTAMP);
+    AddColumn("Sender", SIZE_COL_SENDER);
+    AddColumn("Target", SIZE_COL_TARGET);
+    AddColumn("Message type", SIZE_COL_MESSAGE_TYPE);
 
     this->SetFont(wxFont(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
@@ -175,6 +175,8 @@ void ResultsListCtrl::SortByColumn(int col_id)
                         auto msgtype_2 = msgtypedict_2.find(i2->value().as_string());
                         if (ret)
                             return GenericCompare(msgtype_1->second, msgtype_2->second, ascending);
+                        else
+                            return ascending;
                     }
                 }
             }

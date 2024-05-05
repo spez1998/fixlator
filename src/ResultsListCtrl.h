@@ -94,14 +94,30 @@ class ResultsListCtrl: public wxListCtrl
 
 	private:
 		/**
-		 * \brief The highest column ID currently in use.
-		 */
-		static int col_id;
-
-		/**
 		 * \brief The text to display when the FIX field data is invalid.
 		 */
 		static constexpr const char *invalidDataText = "Error: Invalid data";
+
+		/**
+		 * @{ \name Column sizes. 
+		 */
+		/**
+		 * \brief Size of columns in the list control.
+		 *
+		 * These objects are memory-managed by wxwidgets so can be raw pointers.
+		 */
+		static constexpr const int SIZE_COL_TIMESTAMP = 300;
+		static constexpr const int SIZE_COL_SENDER = 120;
+		static constexpr const int SIZE_COL_TARGET = 120;
+		static constexpr const int SIZE_COL_MESSAGE_TYPE = 120;
+		/**
+		 * @}
+		 */
+
+		/**
+		 * \brief The highest column ID currently in use.
+		 */
+		static int col_id;
 
 		/**
 		 * \brief The sort order for column data in the list control.

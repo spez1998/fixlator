@@ -1,9 +1,3 @@
-/**
- * \file
- * \brief Top level wxwidgets window class.
- *
- */
-
 #pragma once
 
 #include "wx/wx.h"
@@ -18,5 +12,5 @@ class FLApp : public wxApp
 		virtual bool OnInit();
 
 	private:
-		FLMain *m_frame1 = nullptr;
+		FLMain *flmain = nullptr;
 };
