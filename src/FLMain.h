@@ -90,5 +90,5 @@ class FLMain: public wxFrame
 		 * 
 		 * This is used to warn the user before they clear the current messages.
 		*/
-		static constexpr const char *clrCurrentDataNotif = "Clear current FIX messages?";
+		static constexpr const char *clrCurrentDataNotif = "Are you sure you want to clear current FIX messages?";
 };
