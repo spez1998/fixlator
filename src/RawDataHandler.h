@@ -77,19 +77,4 @@ class RawDataHandler
 		 * \return 0 if no data is stored, 1 if data is stored.
 		 */
 		int GetUserDataFillStatus();
-
-		/**
-		 * \brief Returns the pointer to the message at the given index.
-		 * 
-		 * \param msg_idx The index of the message.
-		 * \return The pointer to the message.
-		 */
-		const char *GetMsgLoc(int msg_idx);
-
-		/**
-		 * \brief Returns the number of messages stored.
-		 * 
-		 * \return The number of messages stored.
-		 */
-		inline int GetNumMsgs() { return msg_locs.size(); };
 };
