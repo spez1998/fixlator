@@ -51,14 +51,6 @@ void RawDataHandler::ClearStoredData()
     partial_msg = nullptr;
 }
 
-int RawDataHandler::GetUserDataFillStatus()
-{
-    if (user_data == nullptr)
-        return 0;
-    else
-        return 1;
-}
-
 const char *RawDataHandler::GetMsgLoc(int msgIdx)
 {
     if (msgIdx < msg_locs.size())

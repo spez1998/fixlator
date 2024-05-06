@@ -76,7 +76,7 @@ class RawDataHandler
 		 * 
 		 * \return 0 if no data is stored, 1 if data is stored.
 		 */
-		int GetUserDataFillStatus();
+		inline int GetUserDataFillStatus() { return (user_data == nullptr) ? 0 : 1; };
 
 		/**
 		 * \brief Returns the pointer to the message at the given index.
