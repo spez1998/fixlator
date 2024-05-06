@@ -73,7 +73,6 @@ FLMain::~FLMain()
 
 void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 {
-	// TODO: Fix segfault on invalid input (?)
 	std::string raw_input_str = textctrl_inputbox->GetValue().ToStdString();
 	const char *raw_input_chars = raw_input_str.c_str();
 	if (rawdatahandler_main->GetUserDataFillStatus() == 1)
