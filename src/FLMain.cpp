@@ -5,9 +5,15 @@
 
 #include "FLMain.h"
 
+#define wxID_TEXTCTRL_INPUTBOX 10001
+#define wxID_BUTTON_TRANSLATE 10002
+#define wxID_LISTCTRL_RESULTS 10003
+#define wxID_PREFERENCES 10004
+
 wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
-	EVT_BUTTON(10002, FLMain::OnTranslateClicked)
-	//EVT_MENU(LIST_SORT, FLMain::OnSpecSort)
+	EVT_BUTTON(wxID_BUTTON_TRANSLATE, FLMain::OnTranslateClicked)
+	EVT_MENU(wxID_EXIT, FLMain::OnExit)
+	EVT_MENU(wxID_PREFERENCES, FLMain::OnPreferencesClicked)
 wxEND_EVENT_TABLE()
 
 FLMain::FLMain()
@@ -17,9 +23,9 @@ FLMain::FLMain()
 	SetBackgroundColour(wxColour("#ECECEC"));
 
 	/* Spawn necessary objects */
-	textctrl_inputbox = new wxTextCtrl(this, 10001, "Input", wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
-	button_translate = new wxButton(this, 10002, "Translate");
-    listctrl_results = new ResultsListCtrl(this, 10003, wxDefaultPosition, wxDefaultSize,
+	textctrl_inputbox = new wxTextCtrl(this, wxID_TEXTCTRL_INPUTBOX, "Input", wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
+	button_translate = new wxButton(this, wxID_BUTTON_TRANSLATE, "Translate");
+    listctrl_results = new ResultsListCtrl(this, wxID_LISTCTRL_RESULTS, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
 	messagedialog_clearcurrmsgs = new wxMessageDialog(this, clrCurrentDataNotif, "Clear current messages",
 														wxYES_NO | wxICON_QUESTION);
@@ -27,6 +33,19 @@ FLMain::FLMain()
 
 	rawdatahandler_main = std::make_shared<RawDataHandler>();
 	listctrl_results->rawdatahandler_main = rawdatahandler_main;
+
+	menubar_main = new wxMenuBar;
+	menu_file = new wxMenu;
+	menu_edit = new wxMenu;
+	menu_help = new wxMenu;
+
+	menu_file->Append(wxID_EXIT, _("&Quit"));
+	menu_edit->Append(wxID_PREFERENCES, _("&Preferences"));
+
+	menubar_main->Append(menu_file, _("&File"));
+	menubar_main->Append(menu_edit, _("&Edit"));
+	menubar_main->Append(menu_help, _("&Help"));
+	SetMenuBar(menubar_main);
 
 	/* Set up the grid sizer */
 	gridbagsizer_main->SetFlexibleDirection(wxBOTH);
@@ -47,7 +66,6 @@ FLMain::FLMain()
 	/* Set up user settings window */
 	usersettings_main = std::make_shared<UserSettings>();
 	usersettings_main->Create(this, wxID_ANY, "Settings");
-	usersettings_main->ShowModal();
 
 	this->SetSizer(gridbagsizer_main);
 	gridbagsizer_main->Layout();
@@ -73,4 +91,16 @@ void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 	listctrl_results->RefreshAfterUpdate();
 
     evt.Skip();
+}
+
+void FLMain::OnPreferencesClicked(wxCommandEvent &evt)
+{
+	usersettings_main->ShowModal();
+	evt.Skip();
+}
+
+void FLMain::OnExit(wxCommandEvent &evt)
+{
+	Close(true);
+	evt.Skip();
 }

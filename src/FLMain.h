@@ -9,6 +9,7 @@
 #include <memory>
 
 #include <wx/wx.h>
+#include <wx/menu.h>
 #include <wx/gbsizer.h>
 
 #include "ResultsListCtrl.h"
@@ -45,6 +46,24 @@ class FLMain: public wxFrame
 		 */
 		void OnTranslateClicked(wxCommandEvent &evt);
 
+		/**
+		 * \brief Clear current messages button click event handler.
+		 *
+		 * Prompts the user to confirm clearing the current messages.
+		 * 
+		 * \param evt The event object for the button click.
+		 */
+		void OnPreferencesClicked(wxCommandEvent &evt);
+
+		/**
+		 * \brief Quit menu item click event handler.
+		 *
+		 * Quit the application.
+		 * 
+		 * \param evt The event object for the menu item click.
+		 */
+		void OnExit(wxCommandEvent &evt);
+
 	public:
 		/**
 		 * @{ \name wxwidgets objects. 
@@ -58,6 +77,10 @@ class FLMain: public wxFrame
 		wxButton *button_translate = nullptr;
 		wxGridBagSizer *gridbagsizer_main = nullptr;
 		wxMessageDialog *messagedialog_clearcurrmsgs = nullptr;
+		wxMenuBar *menubar_main = nullptr;
+		wxMenu *menu_file = nullptr;
+		wxMenu *menu_edit = nullptr;
+		wxMenu *menu_help = nullptr;
 		ResultsListCtrl *listctrl_results = nullptr;
 		/**
 		 * @}
@@ -99,5 +122,5 @@ class FLMain: public wxFrame
 		 * 
 		 * This is used to warn the user before they clear the current messages.
 		*/
-		static constexpr const char *clrCurrentDataNotif = "Are you sure you want to clear current FIX messages?";
+		static constexpr const char *clrCurrentDataNotif = "Clear current FIX messages?";
 };
