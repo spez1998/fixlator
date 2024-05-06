@@ -50,11 +50,3 @@ void RawDataHandler::ClearStoredData()
     msg_locs.clear();
     partial_msg = nullptr;
 }
-
-const char *RawDataHandler::GetMsgLoc(int msgIdx)
-{
-    if (msgIdx < msg_locs.size())
-        return msg_locs[msgIdx];
-    else
-        return nullptr;
-}

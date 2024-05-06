@@ -38,7 +38,7 @@ void ResultsListCtrl::AddColumn(const char *name, int width)
 
 void ResultsListCtrl::RefreshAfterUpdate()
 {
-    this->SetItemCount(rawdatahandler_main->GetNumMsgs());
+    this->SetItemCount(rawdatahandler_main->msg_locs.size());
     this->Refresh();
 }
 
