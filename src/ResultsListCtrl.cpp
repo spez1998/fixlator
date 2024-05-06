@@ -58,12 +58,12 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
                 if (reader.find_with_hint(hffix::tag::SendingTime, i))
                 {
                     std::chrono::time_point<std::chrono::system_clock> timestamp;
-                    wxString timestamp_format, original_path = usersettings_main->GetPath();
-                    usersettings_main->SetPath("/options");
-                    if (!(usersettings_main->Read("timestamp_format", &timestamp_format)))
+                    wxString timestamp_format, original_path = fileconfig_main->GetPath();
+                    fileconfig_main->SetPath("/options");
+                    if (!(fileconfig_main->Read("timestamp_format", &timestamp_format)))
                         timestamp_format = "%Y%m%d-%H:%M:%S";
 
-                    usersettings_main->SetPath(original_path);
+                    fileconfig_main->SetPath(original_path);
                     i->value().as_timestamp(timestamp);
                     return _(date::format(timestamp_format.ToStdString(), timestamp));
                 }
@@ -71,13 +71,13 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
                 {
                     return _("N/A");
                 }
-            
+
             case SENDER:
                 if (reader.find_with_hint(hffix::tag::SenderCompID, i))
                     return _(i->value().as_string());
                 else
                     return _("N/A");
-            
+
             case TARGET:
                 if (reader.find_with_hint(hffix::tag::TargetCompID, i))
                     return _(i->value().as_string());

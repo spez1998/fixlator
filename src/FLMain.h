@@ -72,8 +72,17 @@ class FLMain: public wxFrame
 		*/
 		std::shared_ptr<RawDataHandler> rawdatahandler_main;
 
-		/**
-		 * \brief  User settings class
+		/** 
+		 * \brief The main file config object.
+		 * 
+		 * Shared ptr to wxFileConfig object instantiated in FLMain.cpp.
+		*/
+		std::shared_ptr<wxFileConfig> fileconfig_main;
+
+		/** 
+		 * \brief The main user settings window.
+		 * 
+		 * Shared ptr to UserSettings object instantiated in FLMain.cpp.
 		*/
 		std::shared_ptr<UserSettings> usersettings_main;
 

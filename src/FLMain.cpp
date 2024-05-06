@@ -40,9 +40,14 @@ FLMain::FLMain()
 	/* Set up user settings */
 	wxFileName exec_name(wxStandardPaths::Get().GetExecutablePath());
 	wxString settings_path = exec_name.GetPath() + _T("/../../src/fixlator.ini");
-	usersettings_main = std::make_shared<UserSettings>(wxEmptyString, wxEmptyString,
-														settings_path, wxEmptyString, wxCONFIG_USE_LOCAL_FILE);
-	listctrl_results->usersettings_main = usersettings_main;
+	fileconfig_main = std::make_shared<wxFileConfig>(wxEmptyString, wxEmptyString, settings_path, wxEmptyString,
+														wxCONFIG_USE_LOCAL_FILE);
+	listctrl_results->fileconfig_main = fileconfig_main;
+
+	/* Set up user settings window */
+	usersettings_main = std::make_shared<UserSettings>();
+	usersettings_main->Create(this, wxID_ANY, "Settings");
+	usersettings_main->ShowModal();
 
 	this->SetSizer(gridbagsizer_main);
 	gridbagsizer_main->Layout();

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <wx/fileconf.h>
 #include <wx/listctrl.h>
 
 #include "RawDataHandler.h"
@@ -72,13 +73,12 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 		std::shared_ptr<RawDataHandler> rawdatahandler_main;
 
-		/*
-		 * \brief The main user settings object.
+		/**
+		 * \brief The main file config object.
 		 * 
-		 * This is a shared pointer to the user settings object instantiated in
-		 * FLMain.cpp.
+		 * Shared ptr to wxFileConfig object instantiated in FLMain.cpp.
 		 */
-		std::shared_ptr<UserSettings> usersettings_main;
+		std::shared_ptr<wxFileConfig> fileconfig_main;
 
 		/**
 		 * \brief Column names enumeration.

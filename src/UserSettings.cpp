@@ -1,8 +1,10 @@
+#include <wx/panel.h>
+#include <wx/bookctrl.h>
+
 #include "UserSettings.h"
 
-UserSettings::UserSettings(const wxString &appName, const wxString &vendorName, const wxString &localFilename,
-                            const wxString &globalFilename, long style)
-    : wxFileConfig(appName, vendorName, localFilename, globalFilename, style)
+// TODO: Change this into a window displaying the settings rather than the fileControl settings
+UserSettings::UserSettings()
 {
     ;
 }
@@ -10,4 +12,19 @@ UserSettings::UserSettings(const wxString &appName, const wxString &vendorName, 
 UserSettings::~UserSettings()
 {
     ;
+}
+
+bool UserSettings::Create(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos,
+                const wxSize &size, long style, const wxString &name)
+{
+    if (!wxPropertySheetDialog::Create(parent, id, title, pos, size, style, name))
+        return false;
+
+    CreateButtons(wxOK|wxCANCEL|wxHELP);
+
+
+    wxBookCtrlBase *book = GetBookCtrl();
+    book->AddPage(new wxPanel(book, wxID_ANY), "General");
+    LayoutDialog();
+    return true;
 }
