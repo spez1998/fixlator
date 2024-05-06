@@ -23,7 +23,8 @@ FLMain::FLMain()
 	SetBackgroundColour(wxColour("#ECECEC"));
 
 	/* Spawn necessary objects */
-	textctrl_inputbox = new wxTextCtrl(this, wxID_TEXTCTRL_INPUTBOX, "Input", wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE);
+	textctrl_inputbox = new wxTextCtrl(this, wxID_TEXTCTRL_INPUTBOX, "Input", wxDefaultPosition, wxDefaultSize,
+										wxTE_MULTILINE);
 	button_translate = new wxButton(this, wxID_BUTTON_TRANSLATE, "Translate");
     listctrl_results = new ResultsListCtrl(this, wxID_LISTCTRL_RESULTS, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
@@ -104,6 +105,6 @@ void FLMain::OnPreferencesClicked(wxCommandEvent &evt)
 
 void FLMain::OnExit(wxCommandEvent &evt)
 {
-	Close(true);
+	Close(false);
 	evt.Skip();
 }
