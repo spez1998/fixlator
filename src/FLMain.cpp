@@ -82,9 +82,12 @@ void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 	const char *raw_input_chars = raw_input_str.c_str();
 	if (rawdatahandler_main->GetUserDataFillStatus() == 1)
 	{
-		int confirm = messagedialog_clearcurrmsgs->ShowModal();
-		if (confirm == wxID_NO)
-			return;
+		if (listctrl_results->GetItemCount() != 0)
+		{
+			int confirm = messagedialog_clearcurrmsgs->ShowModal();
+			if (confirm == wxID_NO)
+				return;
+		}
 	}
 
 	rawdatahandler_main->StoreUserInput(raw_input_chars);
