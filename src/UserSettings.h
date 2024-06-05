@@ -1,6 +1,7 @@
 #pragma once
 
 #include <wx/wx.h>
+#include <wx/fileconf.h>
 #include <wx/propdlg.h>
 
 class UserSettings: public wxPropertySheetDialog
@@ -12,6 +13,6 @@ class UserSettings: public wxPropertySheetDialog
                 const wxString &name=wxDialogNameStr);
         ~UserSettings();
 
-    private:
-        ;
+    public:
+        std::shared_ptr<wxFileConfig> fileconfig_main;
 };

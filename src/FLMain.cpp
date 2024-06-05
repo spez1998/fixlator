@@ -1,6 +1,5 @@
 #include <wx/string.h>
-#include <wx/config.h>
-#include <wx/confbase.h>
+#include <wx/fileconf.h>
 #include <wx/stdpaths.h>
 
 #include "FLMain.h"
@@ -29,19 +28,22 @@ FLMain::FLMain()
 	button_translate = new wxButton(this, wxID_BUTTON_TRANSLATE, "Translate");
     listctrl_results = new ResultsListCtrl(this, wxID_LISTCTRL_RESULTS, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
-	messagedialog_clearcurrmsgs = new wxMessageDialog(this, clrCurrentDataNotif, "Clear current messages",
+	messagedialog_clearcurrmsgs = new wxMessageDialog(this, clr_current_data_msg, "Clear current messages",
 														wxYES_NO | wxICON_QUESTION);
 	menubar_main = new wxMenuBar;
 	menu_file = new wxMenu;
 	menu_edit = new wxMenu;
 	menu_help = new wxMenu;
 	rawdatahandler_main = std::make_shared<RawDataHandler>();
+
+	/* Set user settings path */
 	wxFileName exec_name(wxStandardPaths::Get().GetExecutablePath());
 	wxString settings_path = exec_name.GetPath() + _T("/../../src/fixlator.ini");
 	fileconfig_main = std::make_shared<wxFileConfig>(wxEmptyString, wxEmptyString, settings_path, wxEmptyString,
 														wxCONFIG_USE_LOCAL_FILE);
 	usersettings_main = std::make_shared<UserSettings>();
 
+	/* Main window layout */
 	gridbagsizer_main->SetFlexibleDirection(wxBOTH);
 	gridbagsizer_main->AddGrowableRow(0);
 	gridbagsizer_main->AddGrowableRow(2);
@@ -53,6 +55,7 @@ FLMain::FLMain()
 	listctrl_results->rawdatahandler_main = rawdatahandler_main;
 	listctrl_results->fileconfig_main = fileconfig_main;
 
+	usersettings_main->fileconfig_main = fileconfig_main;
 	usersettings_main->Create(this, wxID_ANY, "Settings");
 
 	menu_file->Append(wxID_EXIT, _("&Quit"));
