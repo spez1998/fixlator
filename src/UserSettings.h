@@ -8,11 +8,15 @@ class UserSettings: public wxPropertySheetDialog
 {
     public:
         UserSettings();
+        ~UserSettings();
         bool Create(wxWindow *parent, wxWindowID id, const wxString &title, const wxPoint &pos=wxDefaultPosition,
                 const wxSize &size=wxDefaultSize, long style=wxDEFAULT_DIALOG_STYLE,
                 const wxString &name=wxDialogNameStr);
-        ~UserSettings();
+        void OnApplyClicked(wxCommandEvent &evt);
 
     public:
         std::shared_ptr<wxFileConfig> fileconfig_main;
+    
+    private:
+        wxDECLARE_EVENT_TABLE();
 };

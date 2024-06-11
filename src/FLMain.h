@@ -109,13 +109,6 @@ class FLMain: public wxFrame
 		*/
 		std::shared_ptr<UserSettings> usersettings_main;
 
-		/** 
-		 * \brief The event table for this class.
-		 * 
-		 * This is used to bind events to event handlers.
-		*/
-		wxDECLARE_EVENT_TABLE();
-
 	private:
 		/** 
 		 * \brief The confirmaton message when trying to clear current FIX messages.
@@ -123,4 +116,11 @@ class FLMain: public wxFrame
 		 * This is used to warn the user before they clear the current messages.
 		*/
 		static constexpr const char *clr_current_data_msg = "Clear current FIX messages?";
+
+		/** 
+		 * \brief The event table for this class.
+		 * 
+		 * This is used to bind events to event handlers.
+		*/
+		wxDECLARE_EVENT_TABLE();
 };
