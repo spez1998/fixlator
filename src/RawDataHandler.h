@@ -33,7 +33,7 @@ class RawDataHandler
 	public:
 
 		/**
-		 * \brief The list of pointers to each message.
+		 * \brief The list of pointers to each FIX message.
 		 */
 		std::vector<const char *> msg_locs;
 

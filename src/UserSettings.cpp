@@ -68,8 +68,8 @@ bool UserSettings::Create(wxWindow *parent, wxWindowID id, const wxString &title
     CreateButtons(wxOK | wxCANCEL | wxAPPLY);
 
 
-    GeneralPanel *panel_general = new GeneralPanel(GetBookCtrl(), wxID_ANY, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL,
-                                                    "General");
+    GeneralPanel *panel_general = new GeneralPanel(GetBookCtrl(), wxID_ANY, wxDefaultPosition, wxDefaultSize,
+                                                    wxTAB_TRAVERSAL,"General");
     fileconfig_main->SetPath("/options");
     fileconfig_main->Read("timestamp_format", &timestamp_format);
     panel_general->textfield->SetValue(timestamp_format);
