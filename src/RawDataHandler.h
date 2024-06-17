@@ -21,14 +21,14 @@ class RawDataHandler
 		 * \brief The user's data.
 		 * 
 		 */
-		char *user_data = nullptr;
+		std::unique_ptr<char[]> user_data = nullptr;
 
 		/**
 		 * \brief The incomplete message at the end of the raw data.
 		 * 
 		 * This is not guaranteed to exist.
 		 */
-		const char *partial_msg = nullptr;
+		std::unique_ptr<char[]> partial_msg = nullptr;
 
 	public:
 
