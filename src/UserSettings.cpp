@@ -11,8 +11,8 @@ wxEND_EVENT_TABLE()
 class GeneralPanel: public wxPanel
 {
     public:
-        GeneralPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size, long style, const wxString &name)
-            : wxPanel(parent, id, pos, size, style, name)
+        GeneralPanel(wxWindow *parent, wxWindowID id, const wxPoint &pos, const wxSize &size, long style,
+                        const wxString &name) : wxPanel(parent, id, pos, size, style, name)
         {
             wxCheckBox *checkbox1 = new wxCheckBox(this, wxID_ANY, "Setting 1");
             wxCheckBox *checkbox2 = new wxCheckBox(this, wxID_ANY, "Setting 2");

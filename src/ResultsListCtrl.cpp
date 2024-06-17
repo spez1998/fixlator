@@ -10,8 +10,7 @@
 int ResultsListCtrl::col_id = 0;
 
 ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint &pos, const wxSize &size, long style,
-                                    const wxString &name)
-    : wxListCtrl(parent, id, pos, size, wxLC_REPORT | wxLC_VIRTUAL)
+                                    const wxString &name) : wxListCtrl(parent, id, pos, size, wxLC_REPORT | wxLC_VIRTUAL)
 {
     /* This must be done in the same order as the ColumnNames enum */
     // TODO: Define in a header along with the enum?
@@ -94,13 +93,12 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
                 return "";
         }
     } else {
-        switch (col_id)
-        {
-            case 0:
-                return wxString::FromAscii(invalidDataText);
+        switch (col_id) {
+        case 0:
+            return wxString::FromAscii(invalidDataText);
 
-            default:
-                return "";
+        default:
+            return "";
         }
     }
 }
@@ -168,5 +166,6 @@ void ResultsListCtrl::SortByColumn(int col_id)
                     }
                 }
             }
-        });
+        }
+    );
 }
