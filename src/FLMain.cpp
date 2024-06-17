@@ -15,8 +15,7 @@ wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
 	EVT_MENU(wxID_PREFERENCES, FLMain::OnPreferencesClicked)
 wxEND_EVENT_TABLE()
 
-FLMain::FLMain()
-	: wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
+FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
 {
 	/* Cosmetics */
 	SetBackgroundColour(wxColour("#ECECEC"));
@@ -79,16 +78,15 @@ FLMain::FLMain()
 
 FLMain::~FLMain()
 {
+	;
 }
 
 void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 {
 	std::string raw_input_str = textctrl_inputbox->GetValue().ToStdString();
 	const char *raw_input_chars = raw_input_str.c_str();
-	if (rawdatahandler_main->GetUserDataFillStatus() == 1)
-	{
-		if (listctrl_results->GetItemCount() != 0)
-		{
+	if (rawdatahandler_main->GetUserDataFillStatus() == 1) {
+		if (listctrl_results->GetItemCount() != 0) {
 			int confirm = messagedialog_clearcurrmsgs->ShowModal();
 			if (confirm == wxID_NO)
 				return;

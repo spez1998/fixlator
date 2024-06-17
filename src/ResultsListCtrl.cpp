@@ -49,61 +49,51 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
     std::map<std::string, std::string> msgtypedict;
     hffix::dictionary_init_message(msgtypedict);
 
-    if (reader.is_valid())
-    {
+    if (reader.is_valid()) {
         auto i = reader.begin();
-        switch (col_id)
-        {
-            case TIMESTAMP:
-                if (reader.find_with_hint(hffix::tag::SendingTime, i))
-                {
-                    std::chrono::time_point<std::chrono::system_clock> timestamp;
-                    wxString timestamp_format, original_path = fileconfig_main->GetPath();
-                    fileconfig_main->SetPath("/options");
-                    if (!(fileconfig_main->Read("timestamp_format", &timestamp_format)))
-                        timestamp_format = "%Y%m%d-%H:%M:%S";
+        switch (col_id) {
+        case TIMESTAMP:
+            if (reader.find_with_hint(hffix::tag::SendingTime, i)) {
+                std::chrono::time_point<std::chrono::system_clock> timestamp;
+                wxString timestamp_format, original_path = fileconfig_main->GetPath();
+                fileconfig_main->SetPath("/options");
+                if (!(fileconfig_main->Read("timestamp_format", &timestamp_format)))
+                    timestamp_format = "%Y%m%d-%H:%M:%S";
 
-                    fileconfig_main->SetPath(original_path);
-                    i->value().as_timestamp(timestamp);
-                    return _(date::format(timestamp_format.ToStdString(), timestamp));
-                }
-                else
-                {
-                    return _("N/A");
-                }
+                fileconfig_main->SetPath(original_path);
+                i->value().as_timestamp(timestamp);
+                return _(date::format(timestamp_format.ToStdString(), timestamp));
+            } else {
+                return _("N/A");
+            }
 
-            case SENDER:
-                if (reader.find_with_hint(hffix::tag::SenderCompID, i))
-                    return _(i->value().as_string());
-                else
-                    return _("N/A");
+        case SENDER:
+            if (reader.find_with_hint(hffix::tag::SenderCompID, i))
+                return _(i->value().as_string());
+            else
+                return _("N/A");
 
-            case TARGET:
-                if (reader.find_with_hint(hffix::tag::TargetCompID, i))
-                    return _(i->value().as_string());
-                else
-                    return _("N/A");
+        case TARGET:
+            if (reader.find_with_hint(hffix::tag::TargetCompID, i))
+                return _(i->value().as_string());
+            else
+                return _("N/A");
 
-            case MESSAGE_TYPE:
-                if (reader.find_with_hint(hffix::tag::MsgType, i))
-                {
-                    auto msgtype = msgtypedict.find(i->value().as_string());
-                    if (msgtype != msgtypedict.end())
-                        return _(msgtype->second);
-                    else
-                        return _(msgtype->first);
-                }
+        case MESSAGE_TYPE:
+            if (reader.find_with_hint(hffix::tag::MsgType, i)) {
+                auto msgtype = msgtypedict.find(i->value().as_string());
+                if (msgtype != msgtypedict.end())
+                    return _(msgtype->second);
                 else
-                {
+                    return _(msgtype->first);
+                } else {
                     return _("N/A");
                 }
 
             default:
                 return "";
         }
-    }
-    else
-    {
+    } else {
         switch (col_id)
         {
             case 0:
@@ -137,37 +127,35 @@ void ResultsListCtrl::SortByColumn(int col_id)
             std::map<std::string, std::string> msgtypedict_2;
             hffix::dictionary_init_message(msgtypedict_2);
 
-            if (reader1.is_valid() && reader2.is_valid())
-            {
+            if (reader1.is_valid() && reader2.is_valid()) {
                 auto i1 = reader1.begin();
                 auto i2 = reader2.begin();
-                switch(col_id)
-                {
-                    case TIMESTAMP:
-                        ret =  reader1.find_with_hint(hffix::tag::SendingTime, i1);
-                        ret |= reader2.find_with_hint(hffix::tag::SendingTime, i2);
-                        if (ret)
-                            return GenericCompare(i1->value().as_string(), i2->value().as_string(), ascending);
-                        else
-                            return ascending;
-                    
-                    case SENDER:
-                        ret =  reader1.find_with_hint(hffix::tag::SenderCompID, i1);
-                        ret |= reader2.find_with_hint(hffix::tag::SenderCompID, i2);
-                        if (ret)
-                            return GenericCompare(i1->value().as_string(), i2->value().as_string(), ascending);
-                        else
-                            return ascending;
+                switch(col_id) {
+                case TIMESTAMP:
+                    ret =  reader1.find_with_hint(hffix::tag::SendingTime, i1);
+                    ret |= reader2.find_with_hint(hffix::tag::SendingTime, i2);
+                    if (ret)
+                        return GenericCompare(i1->value().as_string(), i2->value().as_string(), ascending);
+                    else
+                        return ascending;
+                
+                case SENDER:
+                    ret =  reader1.find_with_hint(hffix::tag::SenderCompID, i1);
+                    ret |= reader2.find_with_hint(hffix::tag::SenderCompID, i2);
+                    if (ret)
+                        return GenericCompare(i1->value().as_string(), i2->value().as_string(), ascending);
+                    else
+                        return ascending;
 
-                    case TARGET:
-                        ret =  reader1.find_with_hint(hffix::tag::TargetCompID, i1);
-                        ret |= reader2.find_with_hint(hffix::tag::TargetCompID, i2);
-                        if (ret)
-                            return GenericCompare(i1->value().as_string(), i2->value().as_string(), ascending);
-                        else
-                            return ascending;
+                case TARGET:
+                    ret =  reader1.find_with_hint(hffix::tag::TargetCompID, i1);
+                    ret |= reader2.find_with_hint(hffix::tag::TargetCompID, i2);
+                    if (ret)
+                        return GenericCompare(i1->value().as_string(), i2->value().as_string(), ascending);
+                    else
+                        return ascending;
 
-                    case MESSAGE_TYPE:
+                case MESSAGE_TYPE:
                     {
                         ret =  reader1.find_with_hint(hffix::tag::MsgType, i1);
                         ret |= reader2.find_with_hint(hffix::tag::MsgType, i2);

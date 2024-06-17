@@ -26,9 +26,7 @@ int RawDataHandler::StoreUserInput(const char *user_rawinput)
         ClearStoredData();
 
     /* Copy user_rawinput to heap */
-    //user_data = new char[usize];
     user_data = std::make_unique<char[]>(usize);
-    //user_data(new char[usize]);
     std::memcpy(user_data.get(), user_rawinput, usize);
 
     /* Find the start of each msg inside the raw text */
@@ -37,7 +35,7 @@ int RawDataHandler::StoreUserInput(const char *user_rawinput)
         msg_locs.push_back(reader.buffer_begin());
         reader = reader.next_message_reader();
     }
-    
+
     /* Store pointer to incomplete message separately for special handling */
     buffer_length = reader.buffer_end() - reader.buffer_begin();
     if (buffer_length > 0) {
