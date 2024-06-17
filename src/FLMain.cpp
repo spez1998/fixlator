@@ -23,18 +23,25 @@ FLMain::FLMain()
 
 	/* Spawn necessary objects */
 	gridbagsizer_main = new wxGridBagSizer(0, 0);
-	textctrl_inputbox = new wxTextCtrl(this, wxID_TEXTCTRL_INPUTBOX, "Input", wxDefaultPosition, wxDefaultSize,
+
+	textctrl_inputbox = new wxTextCtrl(this, wxID_TEXTCTRL_INPUTBOX, wxEmptyString, wxDefaultPosition, wxDefaultSize,
 										wxTE_MULTILINE);
+	textctrl_inputbox->SetHint(inputbox_hint);
+
 	button_translate = new wxButton(this, wxID_BUTTON_TRANSLATE, "Translate");
+
     listctrl_results = new ResultsListCtrl(this, wxID_LISTCTRL_RESULTS, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
+
 	messagedialog_clearcurrmsgs = new wxMessageDialog(this, clr_current_data_msg, "Clear current messages",
 														wxYES_NO | wxICON_QUESTION);
+	
+	rawdatahandler_main = std::make_shared<RawDataHandler>();
+
 	menubar_main = new wxMenuBar;
 	menu_file = new wxMenu;
 	menu_edit = new wxMenu;
 	menu_help = new wxMenu;
-	rawdatahandler_main = std::make_shared<RawDataHandler>();
 
 	/* Set user settings path */
 	wxFileName exec_name(wxStandardPaths::Get().GetExecutablePath());

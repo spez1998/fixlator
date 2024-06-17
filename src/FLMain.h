@@ -117,6 +117,8 @@ class FLMain: public wxFrame
 		*/
 		static constexpr const char *clr_current_data_msg = "Clear current FIX messages?";
 
+		static constexpr const char *inputbox_hint = "Paste FIX messages here";
+
 		/** 
 		 * \brief The event table for this class.
 		 * 
