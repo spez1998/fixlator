@@ -34,20 +34,11 @@ int RawDataHandler::StoreUserInput(const char *user_rawinput)
     /* Find the start of each msg inside the raw text */
     hffix::message_reader reader(user_data.get(), strlen(user_data.get()));
     while (reader.is_complete()) {
-    hffix::message_reader reader(user_data.get(), strlen(user_data.get()));
-    while (reader.is_complete()) {
         msg_locs.push_back(reader.buffer_begin());
-        reader = reader.next_message_reader();
-    }
         reader = reader.next_message_reader();
     }
     
     /* Store pointer to incomplete message separately for special handling */
-    buffer_length = reader.buffer_end() - reader.buffer_begin();
-    if (buffer_length > 0) {
-        partial_msg = std::make_unique<char[]>(buffer_length);
-        std::memcpy(partial_msg.get(), reader.buffer_begin(), buffer_length);
-    }
     buffer_length = reader.buffer_end() - reader.buffer_begin();
     if (buffer_length > 0) {
         partial_msg = std::make_unique<char[]>(buffer_length);
