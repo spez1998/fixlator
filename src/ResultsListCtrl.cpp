@@ -38,13 +38,13 @@ void ResultsListCtrl::AddColumn(const char *name, int width)
 
 void ResultsListCtrl::RefreshAfterUpdate()
 {
-    this->SetItemCount(rawdatahandler_main->msg_locs.size());
+    this->SetItemCount(userdata_main->msg_locs.size());
     this->Refresh();
 }
 
 wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
 {
-    const char *curr_msg_loc = rawdatahandler_main->msg_locs[index];
+    const char *curr_msg_loc = userdata_main->msg_locs[index];
     hffix::message_reader reader(curr_msg_loc, strlen(curr_msg_loc));
     std::map<std::string, std::string> msgtypedict;
     hffix::dictionary_init_message(msgtypedict);
@@ -113,7 +113,7 @@ void ResultsListCtrl::SortByColumn(int col_id)
 
     bool ascending = this->sort_ascending;
 
-    std::sort(rawdatahandler_main->msg_locs.begin(), rawdatahandler_main->msg_locs.end(),
+    std::sort(userdata_main->msg_locs.begin(), userdata_main->msg_locs.end(),
         [col_id, ascending](const char *msg_p1, const char *msg_p2)
         {
             bool ret = false;

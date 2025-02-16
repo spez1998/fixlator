@@ -4,7 +4,7 @@
 #include <wx/fileconf.h>
 #include <wx/listctrl.h>
 
-#include "RawDataHandler.h"
+#include "UserData.h"
 #include "UserSettings.h"
 
 /**
@@ -65,13 +65,14 @@ class ResultsListCtrl: public wxListCtrl
 		void SortByColumn(int col_id);
 	
 	public:
+
 		/**
 		 * \brief The main raw data handler.
 		 * 
 		 * This is a shared pointer to the raw data handler instantiated in
 		 * FLMain.cpp.
 		 */
-		std::shared_ptr<RawDataHandler> rawdatahandler_main;
+		std::shared_ptr<UserData> userdata_main;
 
 		/**
 		 * \brief The main file config object.
@@ -93,6 +94,7 @@ class ResultsListCtrl: public wxListCtrl
 		};
 
 	private:
+
 		/**
 		 * \brief The text to display when the FIX field data is invalid.
 		 */

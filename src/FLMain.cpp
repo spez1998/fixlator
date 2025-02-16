@@ -34,8 +34,8 @@ FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxD
 
 	messagedialog_clearcurrmsgs = new wxMessageDialog(this, clr_current_data_msg, "Clear current messages",
 														wxYES_NO | wxICON_QUESTION);
-	
-	rawdatahandler_main = std::make_shared<RawDataHandler>();
+
+	userdata_main = std::make_shared<UserData>();
 
 	menubar_main = new wxMenuBar;
 	menu_file = new wxMenu;
@@ -58,7 +58,7 @@ FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxD
 	gridbagsizer_main->Add(button_translate, wxGBPosition(1, 0), wxDefaultSpan);
 	gridbagsizer_main->Add(listctrl_results, wxGBPosition(2, 0), wxDefaultSpan, wxEXPAND | wxALL);
 
-	listctrl_results->rawdatahandler_main = rawdatahandler_main;
+	listctrl_results->userdata_main = userdata_main;
 	listctrl_results->fileconfig_main = fileconfig_main;
 
 	usersettings_main->fileconfig_main = fileconfig_main;
@@ -85,15 +85,20 @@ void FLMain::OnTranslateClicked(wxCommandEvent &evt)
 {
 	std::string raw_input_str = textctrl_inputbox->GetValue().ToStdString();
 	const char *raw_input_chars = raw_input_str.c_str();
-	if (rawdatahandler_main->GetUserDataFillStatus() == 1) {
+
+	std::cout << userdata_main->HasSavedData() << std::endl;
+
+	if (userdata_main->HasSavedData()) {
 		if (listctrl_results->GetItemCount() != 0) {
 			int confirm = messagedialog_clearcurrmsgs->ShowModal();
 			if (confirm == wxID_NO)
 				return;
+			else if (confirm == wxID_YES)
+				userdata_main->ClearStoredData();
 		}
 	}
 
-	rawdatahandler_main->StoreUserInput(raw_input_chars);
+	userdata_main->SaveData(raw_input_chars);
 	listctrl_results->RefreshAfterUpdate();
 
     evt.Skip();

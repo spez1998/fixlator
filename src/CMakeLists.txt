@@ -5,9 +5,9 @@ list(APPEND SOURCES
     PRIVATE
         FLApp.cpp
 	    FLMain.cpp
-	    RawDataHandler.cpp
+        UserData.cpp
 	    Printer.cpp
-	    ResultsListCtrl.cpp
+        ResultsListCtrl.cpp
         UserSettings.cpp
 )
 

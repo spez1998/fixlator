@@ -13,7 +13,7 @@
 #include <wx/gbsizer.h>
 
 #include "ResultsListCtrl.h"
-#include "RawDataHandler.h"
+#include "UserData.h"
 #include "UserSettings.h"
 
 /**
@@ -65,6 +65,7 @@ class FLMain: public wxFrame
 		void OnExit(wxCommandEvent &evt);
 
 	public:
+
 		/**
 		 * @{ \name wxwidgets objects. 
 		 */
@@ -93,7 +94,7 @@ class FLMain: public wxFrame
 		 * start of each FIX message. Use a shared_ptr here since this object gets 
 		 * used by member objects of this class.
 		*/
-		std::shared_ptr<RawDataHandler> rawdatahandler_main;
+		std::shared_ptr<UserData> userdata_main;
 
 		/** 
 		 * \brief The main file config object.
@@ -110,6 +111,7 @@ class FLMain: public wxFrame
 		std::shared_ptr<UserSettings> usersettings_main;
 
 	private:
+
 		/** 
 		 * \brief The confirmaton message when trying to clear current FIX messages.
 		 * 
