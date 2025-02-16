@@ -4,6 +4,7 @@
 
 #include <hffix.hpp>
 #include <wx/string.h>
+#include <wx/intl.h>
 
 #include "ResultsListCtrl.h"
 
@@ -61,20 +62,20 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
 
                 fileconfig_main->SetPath(original_path);
                 i->value().as_timestamp(timestamp);
-                return _(date::format(timestamp_format.ToStdString(), timestamp));
+                return wxString(date::format(timestamp_format.ToStdString(), timestamp));
             } else {
                 return _("N/A");
             }
 
         case SENDER:
             if (reader.find_with_hint(hffix::tag::SenderCompID, i))
-                return _(i->value().as_string());
+                return wxString(i->value().as_string());
             else
                 return _("N/A");
 
         case TARGET:
             if (reader.find_with_hint(hffix::tag::TargetCompID, i))
-                return _(i->value().as_string());
+                return wxString(i->value().as_string());
             else
                 return _("N/A");
 
@@ -82,9 +83,9 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
             if (reader.find_with_hint(hffix::tag::MsgType, i)) {
                 auto msgtype = msgtypedict.find(i->value().as_string());
                 if (msgtype != msgtypedict.end())
-                    return _(msgtype->second);
+                    return wxString(msgtype->second);
                 else
-                    return _(msgtype->first);
+                    return wxString(msgtype->first);
                 } else {
                     return _("N/A");
                 }

@@ -26,7 +26,7 @@ class RawDataHandler
 		/**
 		 * \brief The incomplete message at the end of the raw data.
 		 * 
-		 * This is not guaranteed to exist.
+		 * This is not guaranteed to be filled.
 		 */
 		std::unique_ptr<char[]> partial_msg = nullptr;
 
