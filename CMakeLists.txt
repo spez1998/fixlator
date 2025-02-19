@@ -31,4 +31,12 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(hffix)
 
+message(STATUS "Fetching date...")
+FetchContent_Declare(
+    date
+    GIT_REPOSITORY https://github.com/HowardHinnant/date
+    GIT_SHALLOW ON
+)
+FetchContent_MakeAvailable(date)
+
 add_subdirectory("src")

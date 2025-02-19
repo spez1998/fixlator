@@ -11,6 +11,7 @@ list(APPEND SOURCES
         UserSettings.cpp
 )
 
+# I'm pretty sure hffix deals with including date/date.h
 add_library(hffix INTERFACE)
 target_include_directories(hffix INTERFACE ${hffix_SOURCE_DIR}/include)
 
@@ -28,4 +29,4 @@ endif()
 
 target_sources(${TARGET} PRIVATE ${SOURCES})
 target_link_libraries(fixlator PRIVATE wxcore wxnet wxbase wxadv)
-target_link_libraries(fixlator PUBLIC hffix)
+target_link_libraries(fixlator PUBLIC date hffix)
