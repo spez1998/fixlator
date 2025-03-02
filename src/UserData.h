@@ -38,6 +38,7 @@ class UserData
 		 * \brief A buffer to store the user's raw input. The buffer is guaranteed to be
 		 * larger than the largest possible FIX message size.
 		 * 
+		 * hffix operates on a character buffer, so 
 		 */
 		std::unique_ptr<char[]> userinput_buf = nullptr;
 
@@ -86,8 +87,8 @@ class UserData
 		/**
 		 * \brief Constructor using istream.
 		 * 
-		 * This constructor reads the user's input from an istream and stores it on the heap.
-		 * Useful for reading from std::cin and other istreams.
+		 * This constructor saves the user's input from an istream.
+		 * Useful for reading from std::cin.
 		 * 
 		 * \param stream std::istream of FIX messages.
 		 */
