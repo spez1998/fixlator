@@ -5,6 +5,7 @@
 #include <memory>
 
 #include <hffix.hpp>
+#include <hffix_fields.hpp>
 
 /**
  * \brief A class to handle the user's ASCII input of FIX data.
@@ -54,9 +55,13 @@ class UserData
 
 		/**
 		 * \brief The size of the userinput_buf. Guaranteed to be larger than largest possible FIX message.
-		 * 
 		 */
 		static constexpr size_t userinput_buf_size = 1 << 20;
+
+    /**
+     * \brief Used to store the direction of sorted data
+     */
+    bool sort_ascending {true};
 
 	public:
 
@@ -119,4 +124,11 @@ class UserData
 		 * \return 0 if no data is stored, 1 if data is stored.
 		 */
 		inline int HasSavedData() { return (userinput_buf == nullptr) ? 0 : 1; };
+
+    /**
+     * \brief Sorts messagaes in the buffer by the order of the values in the requested tag
+     *
+     * \return true on success (I think)
+     */
+    bool Sort(int tag);
 };

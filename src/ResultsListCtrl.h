@@ -5,7 +5,7 @@
 #include <wx/listctrl.h>
 
 #include "UserData.h"
-#include "UserSettings.h"
+#include "hffix_fields.hpp"
 
 /**
  * \brief The results list control class.
@@ -63,6 +63,9 @@ class ResultsListCtrl: public wxListCtrl
 		 * \param col_id The column ID.
 		 */
 		void SortByColumn(int col_id);
+
+
+    void SortByColumn2(int col_id);
 	
 	public:
 
@@ -85,12 +88,14 @@ class ResultsListCtrl: public wxListCtrl
 		 * \brief Column names enumeration.
 		 * 
 		 */
+
+    // TODO: Add an unordered_map to easily associate col_ids with hffix::tags
 		enum ColumnNames
 		{
 			TIMESTAMP,
 			SENDER,
 			TARGET,
-			MESSAGE_TYPE,
+			MESSAGE_TYPE
 		};
 
 	private:
