@@ -12,9 +12,9 @@
 #include <wx/menu.h>
 #include <wx/gbsizer.h>
 
-#include "ResultsListCtrl.h"
-#include "UserData.h"
-#include "UserSettings.h"
+#include <base/UserData.h>
+#include <gui/UserSettings.h>
+#include <gui/ResultsListCtrl.h>
 
 /**
  * \brief Represents the main frame within the application.
