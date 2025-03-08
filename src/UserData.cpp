@@ -132,10 +132,10 @@ bool UserData::Sort(int tag)
             }
         } else {
             result = false;
-            return false;
+            return false; // Explicit return from non-void lambda
         }
 
-        return true;
+        return true; // Should never get here
     });
 
     return result; 

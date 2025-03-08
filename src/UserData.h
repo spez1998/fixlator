@@ -39,7 +39,7 @@ class UserData
 		 * \brief A buffer to store the user's raw input. The buffer is guaranteed to be
 		 * larger than the largest possible FIX message size.
 		 * 
-		 * hffix operates on a character buffer, so 
+		 * Necessary to use C-style char buf as this is what hffix works with
 		 */
 		std::unique_ptr<char[]> userinput_buf = nullptr;
 
@@ -47,6 +47,8 @@ class UserData
 		 * \brief A buffer to store any incomplete message at the end of the raw data.
 		 * 
 		 * This is not guaranteed to be filled.
+     *
+     * Necessary to use C-style char buf as this is what hffix works with
 		 */
 		std::unique_ptr<char[]> partialmsg_buf = nullptr;
 

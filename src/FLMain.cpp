@@ -29,7 +29,7 @@ FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxD
 
 	button_translate = new wxButton(this, wxID_BUTTON_TRANSLATE, "Translate");
 
-    listctrl_results = new ResultsListCtrl(this, wxID_LISTCTRL_RESULTS, wxDefaultPosition, wxDefaultSize,
+  listctrl_results = new ResultsListCtrl(this, wxID_LISTCTRL_RESULTS, wxDefaultPosition, wxDefaultSize,
 										wxLC_REPORT|wxLC_VIRTUAL, _("Results"));
 
 	messagedialog_clearcurrmsgs = new wxMessageDialog(this, clr_current_data_msg, "Clear current messages",
