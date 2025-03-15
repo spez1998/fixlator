@@ -14,6 +14,8 @@ TODO:
 2. Add copy assignment, copy constructor, move constructor, move assignment
 */
 
+namespace Fixlator {
+
 UserData::UserData()
 {
     userinput_buf = std::make_unique<char[]>(userinput_buf_size);
@@ -141,3 +143,4 @@ bool UserData::Sort(int tag)
     return result; 
 }
 
+} // namespace Fixlator

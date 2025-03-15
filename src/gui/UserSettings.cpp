@@ -3,6 +3,8 @@
 
 #include "UserSettings.h"
 
+namespace Fixlator::GUI {
+
 wxBEGIN_EVENT_TABLE(UserSettings, wxPropertySheetDialog)
     EVT_BUTTON(wxID_APPLY, UserSettings::OnApplyClicked)
 wxEND_EVENT_TABLE()
@@ -85,3 +87,5 @@ void UserSettings::OnApplyClicked(wxCommandEvent &evt)
     std::cout << "Apply clicked\n";
     evt.Skip();
 }
+
+} // namespace Fixlator::GUI

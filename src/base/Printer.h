@@ -10,6 +10,8 @@
 
 #include "hffix.hpp"
 
+namespace Fixlator {
+
 class Printer
 {
 public:
@@ -20,3 +22,5 @@ public:
 	~Printer();
 	void HFFixToMaps(std::vector<hffix::message_reader> msgs);
 };
+
+} // namespace Fixlator

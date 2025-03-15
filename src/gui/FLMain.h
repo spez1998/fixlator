@@ -16,6 +16,8 @@
 #include <gui/UserSettings.h>
 #include <gui/ResultsListCtrl.h>
 
+namespace Fixlator::GUI {
+
 /**
  * \brief Represents the main frame within the application.
  *
@@ -128,3 +130,5 @@ class FLMain: public wxFrame
 		*/
 		wxDECLARE_EVENT_TABLE();
 };
+
+} // namespace Fixlator::GUI

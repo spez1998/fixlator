@@ -1,6 +1,8 @@
 #include "FLApp.h"
 
-wxIMPLEMENT_APP(FLApp);
+wxIMPLEMENT_APP(Fixlator::GUI::FLApp);
+
+namespace Fixlator::GUI {
 
 FLApp::FLApp()
 {
@@ -16,3 +18,5 @@ bool FLApp::OnInit()
 	flmain->Show();
 	return true;
 }
+
+} // namespace Fixlator::GUI

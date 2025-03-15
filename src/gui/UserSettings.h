@@ -4,6 +4,8 @@
 #include <wx/fileconf.h>
 #include <wx/propdlg.h>
 
+namespace Fixlator::GUI {
+
 class UserSettings: public wxPropertySheetDialog
 {
     public:
@@ -20,3 +22,5 @@ class UserSettings: public wxPropertySheetDialog
     private:
         wxDECLARE_EVENT_TABLE();
 };
+
+} // namespace Fixlator::GUI

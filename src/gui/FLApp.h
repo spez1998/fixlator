@@ -4,6 +4,8 @@
 
 #include "FLMain.h"
 
+namespace Fixlator::GUI {
+
 class FLApp : public wxApp
 {
 	public:
@@ -14,3 +16,5 @@ class FLApp : public wxApp
 	private:
 		FLMain *flmain = nullptr;
 };
+
+} // namespace Fixlator::GUI

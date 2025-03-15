@@ -7,6 +7,8 @@
 #include <base/UserData.h>
 #include "hffix_fields.hpp"
 
+namespace Fixlator::GUI {
+
 /**
  * \brief The results list control class.
  *
@@ -65,7 +67,7 @@ class ResultsListCtrl: public wxListCtrl
 		void SortByColumn(int col_id);
 
 
-    void SortByColumn2(int col_id);
+        void SortByColumn2(int col_id);
 	
 	public:
 
@@ -131,3 +133,5 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 		bool sort_ascending;
 };
+
+} // namespace Fixlator::GUI

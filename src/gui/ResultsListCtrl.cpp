@@ -9,6 +9,8 @@
 #include "ResultsListCtrl.h"
 #include "hffix_fields.hpp"
 
+namespace Fixlator::GUI {
+
 int ResultsListCtrl::col_id = 0;
 
 ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint &pos, const wxSize &size, long style,
@@ -198,3 +200,5 @@ void ResultsListCtrl::SortByColumn(int col_id)
         }
     );
 }
+
+} // namespace Fixlator::GUI

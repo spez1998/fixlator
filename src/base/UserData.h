@@ -7,6 +7,8 @@
 #include <hffix.hpp>
 #include <hffix_fields.hpp>
 
+namespace Fixlator {
+
 /**
  * \brief A class to handle the user's ASCII input of FIX data.
  *
@@ -134,3 +136,5 @@ class UserData
      */
     bool Sort(int tag);
 };
+
+} // namespace Fixlator

@@ -9,11 +9,14 @@
 #define wxID_LISTCTRL_RESULTS 10003
 #define wxID_PREFERENCES 10004
 
+namespace Fixlator::GUI {
+
 wxBEGIN_EVENT_TABLE(FLMain, wxFrame)
 	EVT_BUTTON(wxID_BUTTON_TRANSLATE, FLMain::OnTranslateClicked)
 	EVT_MENU(wxID_EXIT, FLMain::OnExit)
 	EVT_MENU(wxID_PREFERENCES, FLMain::OnPreferencesClicked)
 wxEND_EVENT_TABLE()
+
 
 FLMain::FLMain() : wxFrame(nullptr, wxID_ANY, "fixlator", wxDefaultPosition, wxDefaultSize)
 {
@@ -115,3 +118,5 @@ void FLMain::OnExit(wxCommandEvent &evt)
 	Close(false);
 	evt.Skip();
 }
+
+} // namespace Fixlator::GUI
