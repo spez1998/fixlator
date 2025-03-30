@@ -37,7 +37,7 @@ void UserData::SaveData(const char *data)
 
 void UserData::FindMsgs(std::unique_ptr<char[]>& userinput_buf, std::vector<const char *>& msg_locs,
                             std::unique_ptr<char[]>& partialmsg_buf)
-{    
+{
     /* Find the start of each msg inside the raw text */
     hffix::message_reader reader(userinput_buf.get(), strlen(userinput_buf.get()));
     while (reader.is_complete()) {
