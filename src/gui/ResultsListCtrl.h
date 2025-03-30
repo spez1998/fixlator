@@ -4,7 +4,6 @@
 #include <wx/fileconf.h>
 #include <wx/listctrl.h>
 
-#include <base/UserData.h>
 #include <base/Controller.h>
 #include "hffix_fields.hpp"
 
@@ -38,7 +37,7 @@ class ResultsListCtrl: public wxListCtrl
 		 * the list control.
 		 * \param index The index of the item.
 		 * \param col_id The column id.
-		*/
+		 */
 		virtual wxString OnGetItemText(long index, long col_id) const wxOVERRIDE;
 
 		/**
