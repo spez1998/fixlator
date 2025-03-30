@@ -49,8 +49,8 @@ class UserData
 		 * \brief A buffer to store any incomplete message at the end of the raw data.
 		 * 
 		 * This is not guaranteed to be filled.
-     *
-     * Necessary to use C-style char buf as this is what hffix works with
+         *
+         * Necessary to use C-style char buf as this is what hffix works with
 		 */
 		std::unique_ptr<char[]> partialmsg_buf = nullptr;
 
@@ -62,12 +62,10 @@ class UserData
 		 */
 		static constexpr size_t userinput_buf_size = 1 << 20;
 
-    /**
-     * \brief Used to store the direction of sorted data
-     */
-    bool sort_ascending {true};
-
-	public:
+        /**
+         * \brief Used to store the direction of sorted data
+         */
+        bool sort_ascending {true};
 
 		/**
 		 * \brief The list of pointers to each FIX message.
@@ -127,14 +125,28 @@ class UserData
 		 * 
 		 * \return 0 if no data is stored, 1 if data is stored.
 		 */
-		inline int HasSavedData() { return (userinput_buf == nullptr) ? 0 : 1; };
+		inline bool HasSavedData() { return (userinput_buf == nullptr) ? false : true; };
 
-    /**
-     * \brief Sorts messagaes in the buffer by the order of the values in the requested tag
-     *
-     * \return true on success (I think)
-     */
-    bool Sort(int tag);
+        /**
+         * \brief Returns number of saved messages
+         * 
+         * \return number of ptrs in the vector, i.e. number of saved msgs
+         */
+        int GetNumSavedMessages() { return msg_locs.size(); };
+
+        /**
+         * \brief Get a pointer to a message
+         *
+         * \return const char pointer pointing to a part of the userdata saved buffer
+         */
+        const char* GetMsg(int index) { return msg_locs[index]; };
+
+        /**
+         * \brief Sorts messagaes in the buffer by the order of the values in the requested tag
+         *
+         * \return true on success (I think)
+         */
+        bool Sort(int tag);
 };
 
 } // namespace Fixlator

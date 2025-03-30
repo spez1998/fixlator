@@ -15,6 +15,7 @@ FLApp::~FLApp()
 bool FLApp::OnInit()
 {
 	flmain = new FLMain();
+    flmain->SetupFrame();
 	flmain->Show();
 	return true;
 }

@@ -5,6 +5,7 @@
 #include <wx/listctrl.h>
 
 #include <base/UserData.h>
+#include <gui/Controller.h>
 #include "hffix_fields.hpp"
 
 namespace Fixlator::GUI {
@@ -27,7 +28,8 @@ class ResultsListCtrl: public wxListCtrl
 		 * - The columns are set up
 		 */
 		ResultsListCtrl(wxWindow *parent, wxWindowID id, const wxPoint &pos,
-						const wxSize &size, long style, const wxString &name);
+						const wxSize &size, long style, const wxString &name,
+                        std::shared_ptr<Controller> controller);
 
 		/**
 		 * \brief Virtaul item text getter.
@@ -71,13 +73,7 @@ class ResultsListCtrl: public wxListCtrl
 	
 	public:
 
-		/**
-		 * \brief The main raw data handler.
-		 * 
-		 * This is a shared pointer to the raw data handler instantiated in
-		 * FLMain.cpp.
-		 */
-		std::shared_ptr<UserData> userdata_main;
+        std::shared_ptr<Controller> controller;
 
 		/**
 		 * \brief The main file config object.

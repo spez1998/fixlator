@@ -14,7 +14,9 @@ namespace Fixlator::GUI {
 int ResultsListCtrl::col_id = 0;
 
 ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint &pos, const wxSize &size, long style,
-                                    const wxString &name) : wxListCtrl(parent, id, pos, size, wxLC_REPORT | wxLC_VIRTUAL)
+                                    const wxString &name, std::shared_ptr<Controller> controller)
+: wxListCtrl(parent, id, pos, size, wxLC_REPORT | wxLC_VIRTUAL),
+  controller(controller)
 {
     /* This must be done in the same order as the ColumnNames enum */
     // TODO: Define in a header along with the enum?
@@ -42,13 +44,13 @@ void ResultsListCtrl::AddColumn(const char *name, int width)
 
 void ResultsListCtrl::RefreshAfterUpdate()
 {
-    this->SetItemCount(userdata_main->msg_locs.size());
+    this->SetItemCount(controller->GetNumSavedMsgs());
     this->Refresh();
 }
 
 wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
 {
-    const char *curr_msg_loc = userdata_main->msg_locs[index];
+    const char *curr_msg_loc = controller->GetMsg(index);
     hffix::message_reader reader(curr_msg_loc, strlen(curr_msg_loc));
     std::map<std::string, std::string> msgtypedict;
     hffix::dictionary_init_message(msgtypedict);
@@ -112,93 +114,24 @@ void ResultsListCtrl::SortByColumn2(int col_id)
 {
     switch(col_id) {
         case TIMESTAMP:
-            userdata_main->Sort(hffix::tag::SendingTime);
+            controller->SortUserData(hffix::tag::SendingTime);
             break;
         
         case SENDER:
-            userdata_main->Sort(hffix::tag::SenderCompID);
+            controller->SortUserData(hffix::tag::SenderCompID);
             break;
         
         case TARGET:
-            userdata_main->Sort(hffix::tag::TargetCompID);
+            controller->SortUserData(hffix::tag::TargetCompID);
             break;
 
         case MESSAGE_TYPE:
-            userdata_main->Sort(hffix::tag::MsgType);
+            controller->SortUserData(hffix::tag::MsgType);
             break;
         
         default:
             break; 
     }
-}
-
-void ResultsListCtrl::SortByColumn(int col_id)
-{
-    static auto GenericCompare = [](auto a, auto b, bool ascending)
-    {
-        return ascending ? (a < b) : (a > b);
-    };
-
-    bool sort_ascending = this->sort_ascending;
-
-    std::sort(userdata_main->msg_locs.begin(), userdata_main->msg_locs.end(),
-        [col_id, sort_ascending](const char *msg_p1, const char *msg_p2)
-        {
-            bool ret = false;
-
-            hffix::message_reader reader1(msg_p1, strlen(msg_p1));
-            std::map<std::string, std::string> msgtypedict_1;
-            hffix::dictionary_init_message(msgtypedict_1);
-
-            hffix::message_reader reader2(msg_p2, strlen(msg_p2));
-            std::map<std::string, std::string> msgtypedict_2;
-            hffix::dictionary_init_message(msgtypedict_2);
-
-            if (reader1.is_valid() && reader2.is_valid()) {
-                auto i1 = reader1.begin();
-                auto i2 = reader2.begin();
-                switch(col_id) {
-                    case TIMESTAMP:
-                        ret =  reader1.find_with_hint(hffix::tag::SendingTime, i1);
-                        ret |= reader2.find_with_hint(hffix::tag::SendingTime, i2);
-                        if (ret) {
-                            return GenericCompare(i1->value().as_string(), i2->value().as_string(), sort_ascending);
-                        } else {
-                            std::cout << "else brnach";
-                            return sort_ascending;
-                        }
-                    
-                    case SENDER:
-                        ret =  reader1.find_with_hint(hffix::tag::SenderCompID, i1);
-                        ret |= reader2.find_with_hint(hffix::tag::SenderCompID, i2);
-                        if (ret)
-                            return GenericCompare(i1->value().as_string(), i2->value().as_string(), sort_ascending);
-                        else
-                            return sort_ascending;
-
-                    case TARGET:
-                        ret =  reader1.find_with_hint(hffix::tag::TargetCompID, i1);
-                        ret |= reader2.find_with_hint(hffix::tag::TargetCompID, i2);
-                        if (ret)
-                            return GenericCompare(i1->value().as_string(), i2->value().as_string(), sort_ascending);
-                        else
-                            return sort_ascending;
-
-                    case MESSAGE_TYPE:
-                    {
-                        ret =  reader1.find_with_hint(hffix::tag::MsgType, i1);
-                        ret |= reader2.find_with_hint(hffix::tag::MsgType, i2);
-                        auto msgtype_1 = msgtypedict_1.find(i1->value().as_string());
-                        auto msgtype_2 = msgtypedict_2.find(i2->value().as_string());
-                        if (ret)
-                            return GenericCompare(msgtype_1->second, msgtype_2->second, sort_ascending);
-                        else
-                            return sort_ascending;
-                    }
-                }
-            }
-        }
-    );
 }
 
 } // namespace Fixlator::GUI

@@ -13,6 +13,7 @@
 #include <wx/gbsizer.h>
 
 #include <base/UserData.h>
+#include <gui/Controller.h>
 #include <gui/UserSettings.h>
 #include <gui/ResultsListCtrl.h>
 
@@ -37,6 +38,8 @@ class FLMain: public wxFrame
 		FLMain();
 
 		~FLMain();
+
+        void SetupFrame();
 
 		/**
 		 * \brief Translate button click event handler.
@@ -75,7 +78,7 @@ class FLMain: public wxFrame
 		 * \brief Some objects used to display useful things.
 		 *
 		 * These objects are memory-managed by wxwidgets so can be raw pointers.
-		 */
+		*/
 		wxTextCtrl *textctrl_inputbox = nullptr;
 		wxButton *button_translate = nullptr;
 		wxGridBagSizer *gridbagsizer_main = nullptr;
@@ -85,9 +88,9 @@ class FLMain: public wxFrame
 		wxMenu *menu_edit = nullptr;
 		wxMenu *menu_help = nullptr;
 		ResultsListCtrl *listctrl_results = nullptr;
-		/**
-		 * @}
-		 */
+	    /**
+		* @}
+		*/
 
 		/** 
 		 * \brief The class which stores and manages the user's raw input data.
@@ -96,7 +99,7 @@ class FLMain: public wxFrame
 		 * start of each FIX message. Use a shared_ptr here since this object gets 
 		 * used by member objects of this class.
 		*/
-		std::shared_ptr<UserData> userdata_main;
+		//std::shared_ptr<UserData> userdata_main;
 
 		/** 
 		 * \brief The main file config object.
@@ -122,6 +125,8 @@ class FLMain: public wxFrame
 		static constexpr const char *clr_current_data_msg = "Clear current FIX messages?";
 
 		static constexpr const char *inputbox_hint = "Paste FIX messages here";
+
+        std::shared_ptr<Controller> controller;
 
 		/** 
 		 * \brief The event table for this class.
