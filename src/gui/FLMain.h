@@ -13,7 +13,7 @@
 #include <wx/gbsizer.h>
 
 #include <base/UserData.h>
-#include <gui/Controller.h>
+#include <base/Controller.h>
 #include <gui/UserSettings.h>
 #include <gui/ResultsListCtrl.h>
 

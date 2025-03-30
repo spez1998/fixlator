@@ -1,5 +1,5 @@
-#include <gui/Controller.h>
+#include <base/Controller.h>
 
-namespace Fixlator::GUI {
+namespace Fixlator {
 
 } // namespace Fixlator::GUI

@@ -5,7 +5,7 @@
 
 #include <base/UserData.h>
 
-namespace Fixlator::GUI {
+namespace Fixlator {
 
 /**
  * \brief The main controller to mediate low-level <---> GUI interactions

@@ -5,7 +5,7 @@
 #include <wx/listctrl.h>
 
 #include <base/UserData.h>
-#include <gui/Controller.h>
+#include <base/Controller.h>
 #include "hffix_fields.hpp"
 
 namespace Fixlator::GUI {
