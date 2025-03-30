@@ -67,13 +67,6 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 		void SortByColumn(int col_id);
 
-
-        void SortByColumn2(int col_id);
-	
-	public:
-
-        std::shared_ptr<Controller> controller;
-
 		/**
 		 * \brief The main file config object.
 		 * 
@@ -82,11 +75,24 @@ class ResultsListCtrl: public wxListCtrl
 		std::shared_ptr<wxFileConfig> fileconfig_main;
 
 		/**
+		 * \brief The highest column ID currently in use.
+		 */
+		static int col_id;
+
+		/**
+		 * \brief The sort order for column data in the list control.
+		 */
+		bool sort_ascending;
+
+	public:
+
+		std::shared_ptr<Controller> controller;
+
+	private:
+		/**
 		 * \brief Column names enumeration.
 		 * 
 		 */
-
-    // TODO: Add an unordered_map to easily associate col_ids with hffix::tags
 		enum ColumnNames
 		{
 			TIMESTAMP,
@@ -95,7 +101,10 @@ class ResultsListCtrl: public wxListCtrl
 			MESSAGE_TYPE
 		};
 
-	private:
+		/**
+		 * \brief A map to associate column IDs with their hffix::tags.
+		 */
+		std::unordered_map<ColumnNames, int> col_id_to_tag;
 
 		/**
 		 * \brief The text to display when the FIX field data is invalid.
@@ -118,15 +127,8 @@ class ResultsListCtrl: public wxListCtrl
 		 * @}
 		 */
 
-		/**
-		 * \brief The highest column ID currently in use.
-		 */
-		static int col_id;
-
-		/**
-		 * \brief The sort order for column data in the list control.
-		 */
-		bool sort_ascending;
+	private:
+		void SortByColumn2(ColumnNames col_name);
 };
 
 } // namespace Fixlator::GUI

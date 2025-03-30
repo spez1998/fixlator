@@ -27,13 +27,16 @@ ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint 
 
     this->SetFont(wxFont(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
-    this->Bind(wxEVT_LIST_COL_CLICK, [this](wxListEvent &evt)
-                {
-                    this->SortByColumn2(evt.GetColumn());
-                    this->Refresh();
-                    this->sort_ascending = !this->sort_ascending;
-                }
-    );
+    this->Bind(wxEVT_LIST_COL_CLICK, [this](wxListEvent &evt) {
+        this->SortByColumn2(static_cast<ColumnNames>(evt.GetColumn()));
+        this->Refresh();
+        this->sort_ascending = !this->sort_ascending;
+    });
+
+	col_id_to_tag[ColumnNames::TIMESTAMP] = hffix::tag::SendingTime;
+	col_id_to_tag[ColumnNames::SENDER] = hffix::tag::SenderCompID;
+	col_id_to_tag[ColumnNames::TARGET] = hffix::tag::TargetCompID;
+	col_id_to_tag[ColumnNames::MESSAGE_TYPE] = hffix::tag::MsgType;
 }
 
 void ResultsListCtrl::AddColumn(const char *name, int width)
@@ -110,28 +113,9 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
     }
 }
 
-void ResultsListCtrl::SortByColumn2(int col_id)
+void ResultsListCtrl::SortByColumn2(ColumnNames col_name)
 {
-    switch(col_id) {
-        case TIMESTAMP:
-            controller->SortUserData(hffix::tag::SendingTime);
-            break;
-        
-        case SENDER:
-            controller->SortUserData(hffix::tag::SenderCompID);
-            break;
-        
-        case TARGET:
-            controller->SortUserData(hffix::tag::TargetCompID);
-            break;
-
-        case MESSAGE_TYPE:
-            controller->SortUserData(hffix::tag::MsgType);
-            break;
-        
-        default:
-            break; 
-    }
+    controller->SortUserData(col_id_to_tag[col_name]);
 }
 
 } // namespace Fixlator::GUI

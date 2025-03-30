@@ -9,7 +9,11 @@ namespace Fixlator {
 
 /**
  * \brief The main controller to mediate low-level <---> GUI interactions
+ * 
+ * This class owns and managed the UserData class.
  *
+ * Most of the methods in this class should just call the corresponding method
+ * in the underlying UserData class.
 */
 
 class Controller {

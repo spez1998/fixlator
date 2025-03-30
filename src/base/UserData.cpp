@@ -131,6 +131,9 @@ bool UserData::Sort(int tag)
                         return ascending;
                     }
                 }
+
+                default:
+                    return ascending;
             }
         } else {
             result = false;
