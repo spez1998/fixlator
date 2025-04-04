@@ -37,15 +37,21 @@ class FLMain: public wxFrame
 		 */
 		FLMain();
 
+		/**
+		 * \brief Destructor.
+		 */
 		~FLMain();
 
+		/**
+		 * \brief Setup the cosmetics of the main frame.
+		 */
         void SetupFrame();
 
 		/**
 		 * \brief Translate button click event handler.
 		 *
-		 * Stores (to the heap) user data inside the textbox and refreshes the
-		 * virtual list control to display the translated data.
+		 * Stores any user data inside the textbox and refreshes the virtual list control to display 
+		 * the translated data.  
 		 * 
 		 * \param evt The event object for the button click.
 		 */
@@ -93,15 +99,6 @@ class FLMain: public wxFrame
 		*/
 
 		/** 
-		 * \brief The class which stores and manages the user's raw input data.
-		 * 
-		 * This is responsible for saving the user data and memory locations of the 
-		 * start of each FIX message. Use a shared_ptr here since this object gets 
-		 * used by member objects of this class.
-		*/
-		//std::shared_ptr<UserData> userdata_main;
-
-		/** 
 		 * \brief The main file config object.
 		 * 
 		 * Shared ptr to wxFileConfig object instantiated in FLMain.cpp.
@@ -124,9 +121,19 @@ class FLMain: public wxFrame
 		*/
 		static constexpr const char *clr_current_data_msg = "Clear current FIX messages?";
 
+		/**
+		 * \brief The hint text for the input box.
+		 * 
+		*/
 		static constexpr const char *inputbox_hint = "Paste FIX messages here";
 
-        std::shared_ptr<Controller> controller;
+		/**
+		 * \brief The controller object.
+		 * 
+		 * This instantiates a storage class for user data and acts as the mediator between the GUI and the
+		 * UserData storage class.
+		*/
+		std::shared_ptr<Controller> controller;
 
 		/** 
 		 * \brief The event table for this class.

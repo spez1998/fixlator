@@ -28,9 +28,8 @@ ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint 
     this->SetFont(wxFont(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
     this->Bind(wxEVT_LIST_COL_CLICK, [this](wxListEvent &evt) {
-        this->SortByColumn2(static_cast<ColumnNames>(evt.GetColumn()));
+        this->SortByColumns(static_cast<ColumnNames>(evt.GetColumn()));
         this->Refresh();
-        this->sort_ascending = !this->sort_ascending;
     });
 
 	col_id_to_tag[ColumnNames::TIMESTAMP] = hffix::tag::SendingTime;

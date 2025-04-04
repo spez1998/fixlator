@@ -63,7 +63,7 @@ class ResultsListCtrl: public wxListCtrl
 		/**
 		 * \brief Define sorting algorithms for each column
 		 * 
-		 * \param col_id The column ID.
+		 * \param col_id The column ID to sort by.
 		 */
 		void SortByColumn(int col_id);
 
@@ -79,13 +79,13 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 		static int col_id;
 
-		/**
-		 * \brief The sort order for column data in the list control.
-		 */
-		bool sort_ascending;
-
 	public:
-
+		/**
+		 * \brief The controller object.
+		 * 
+		 * This instantiates a storage class for user data and acts as the mediator between the GUI and the
+		 * UserData storage class.
+		 */
 		std::shared_ptr<Controller> controller;
 
 	private:
@@ -102,7 +102,8 @@ class ResultsListCtrl: public wxListCtrl
 		};
 
 		/**
-		 * \brief A map to associate column IDs with their hffix::tags.
+		 * \brief A map to associate column IDs with their corresponding hffix::tags.
+		 * 
 		 */
 		std::unordered_map<ColumnNames, int> col_id_to_tag;
 
@@ -116,8 +117,6 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 		/**
 		 * \brief Size of columns in the list control.
-		 *
-		 * These objects are memory-managed by wxwidgets so can be raw pointers.
 		 */
 		static constexpr const int SIZE_COL_TIMESTAMP = 300;
 		static constexpr const int SIZE_COL_SENDER = 120;
@@ -128,7 +127,12 @@ class ResultsListCtrl: public wxListCtrl
 		 */
 
 	private:
-		void SortByColumn2(ColumnNames col_name);
+		/**
+		 * \brief Sort the list control by a given column.
+		 * 
+		 * \param col_id The column ID to sort the data by.
+		 */
+		void SortByColumn(int col_id);
 };
 
 } // namespace Fixlator::GUI

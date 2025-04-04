@@ -46,6 +46,16 @@ class UserData
 		std::unique_ptr<char[]> userinput_buf = nullptr;
 
 		/**
+		 * \brief userinput buffer pre-allocation size. Guaranteed to be larger than largest possible FIX message.
+		 */
+		static constexpr size_t userinput_buf_size = 1 << 20;
+
+		/**
+		 * \brief Vector of pointers to each FIX message in the userinput_buf.
+		 */
+		std::vector<const char *> msg_locs;
+
+		/**
 		 * \brief A buffer to store any incomplete message at the end of the raw data.
 		 * 
 		 * This is not guaranteed to be filled.
@@ -54,40 +64,37 @@ class UserData
 		 */
 		std::unique_ptr<char[]> partialmsg_buf = nullptr;
 
+		/**
+		 * \brief Length of actual data in the userinput_buf.
+		 */
 		size_t userdata_len {0};
-		size_t partialmsg_len {0};
 
 		/**
-		 * \brief The size of the userinput_buf. Guaranteed to be larger than largest possible FIX message.
+		 * \brief Length of data in the partialmsg_buf.
 		 */
-		static constexpr size_t userinput_buf_size = 1 << 20;
+		size_t partialmsg_len {0};
 
         /**
          * \brief Used to store the direction of sorted data
          */
         bool sort_ascending {true};
 
-		/**
-		 * \brief The list of pointers to each FIX message.
-		 */
-		std::vector<const char *> msg_locs;
-
 	public:
 
 		/**
 		 * \brief Constructor
-		 * 
 		 */
 		UserData();
 
 		/**
 		 * \brief Default destructor.
-		 * 
 		 */
 		~UserData() = default;
 
 		/** 
 		 * \brief Save data pointed to by char ptr.
+		 * 
+		 * \param data Pointer to some data to save.
 		 */
 		void SaveData(const char *data);
 
@@ -100,17 +107,6 @@ class UserData
 		 * \param stream std::istream of FIX messages.
 		 */
 		void SaveData(std::istream& stream);
-
-		/**
-		 * \brief Stores the user's input data.
-		 * 
-		 * This function copies the user's input data from the input text box to the
-		 *  heap and stores pointers to each FIX message.
-		 * 
-		 * \param user_input ASCII bytes of FIX messages.
-		 * \return 0 on success, TODO: -1 on failure.
-		 */
-		int StoreUserInput(const char *user_input);
 
 		/**
 		 * \brief Clears the stored data.
@@ -136,6 +132,8 @@ class UserData
 
         /**
          * \brief Get a pointer to a message
+		 * 
+		 * \param index The index of the message to get.
          *
          * \return const char pointer pointing to a part of the userdata saved buffer
          */
@@ -143,6 +141,8 @@ class UserData
 
         /**
          * \brief Sorts messagaes in the buffer by the order of the values in the requested tag
+		 * 
+		 * \param tag A hffix::tag to sort by.
          *
          * \return true on success (I think)
          */
