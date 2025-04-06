@@ -46,11 +46,6 @@ class UserData
 		std::unique_ptr<char[]> userinput_buf = nullptr;
 
 		/**
-		 * \brief userinput buffer pre-allocation size. Guaranteed to be larger than largest possible FIX message.
-		 */
-		static constexpr size_t userinput_buf_size = 1 << 20;
-
-		/**
 		 * \brief Vector of pointers to each FIX message in the userinput_buf.
 		 */
 		std::vector<const char *> msg_locs;
@@ -80,6 +75,11 @@ class UserData
         bool sort_ascending {true};
 
 	public:
+ 
+		/**
+		 * \brief userinput buffer pre-allocation size. Guaranteed to be larger than largest possible FIX message.
+		 */
+		static constexpr size_t userinput_buf_size = 1 << 20;
 
 		/**
 		 * \brief Constructor
