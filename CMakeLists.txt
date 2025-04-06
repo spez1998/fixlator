@@ -39,4 +39,4 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(date)
 
-add_subdirectory("src/gui")
+add_subdirectory("src")

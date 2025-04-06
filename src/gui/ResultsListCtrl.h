@@ -105,7 +105,7 @@ class ResultsListCtrl: public wxListCtrl
 		 * \brief A map to associate column IDs with their corresponding hffix::tags.
 		 * 
 		 */
-		std::unordered_map<ColumnNames, int> col_id_to_tag;
+		std::unordered_map<int, int> col_id_to_tag;
 
 		/**
 		 * \brief The text to display when the FIX field data is invalid.
@@ -125,14 +125,6 @@ class ResultsListCtrl: public wxListCtrl
 		/**
 		 * @}
 		 */
-
-	private:
-		/**
-		 * \brief Sort the list control by a given column.
-		 * 
-		 * \param col_id The column ID to sort the data by.
-		 */
-		void SortByColumn(int col_id);
 };
 
 } // namespace Fixlator::GUI

@@ -28,7 +28,7 @@ ResultsListCtrl::ResultsListCtrl(wxWindow* parent, wxWindowID id, const wxPoint 
     this->SetFont(wxFont(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL));
 
     this->Bind(wxEVT_LIST_COL_CLICK, [this](wxListEvent &evt) {
-        this->SortByColumns(static_cast<ColumnNames>(evt.GetColumn()));
+        this->SortByColumn(evt.GetColumn());
         this->Refresh();
     });
 
@@ -112,9 +112,9 @@ wxString ResultsListCtrl::OnGetItemText(long index, long col_id) const
     }
 }
 
-void ResultsListCtrl::SortByColumn2(ColumnNames col_name)
+void ResultsListCtrl::SortByColumn(int col_id)
 {
-    controller->SortUserData(col_id_to_tag[col_name]);
+    controller->SortUserData(col_id_to_tag[col_id]);
 }
 
 } // namespace Fixlator::GUI
