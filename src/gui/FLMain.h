@@ -12,10 +12,10 @@
 #include <wx/menu.h>
 #include <wx/gbsizer.h>
 
-#include <base/UserData.h>
-#include <base/Controller.h>
-#include <gui/UserSettings.h>
-#include <gui/ResultsListCtrl.h>
+#include "base/UserData.h"
+#include "base/Controller.h"
+#include "UserSettings.h"
+#include "ResultsListCtrl.h"
 
 namespace Fixlator::GUI {
 

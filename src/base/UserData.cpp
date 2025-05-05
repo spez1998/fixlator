@@ -146,4 +146,13 @@ bool UserData::Sort(int tag)
     return result; 
 }
 
+bool UserData::HasStoredData()
+{
+    if ((strlen(userinput_buf.get()) > 0) || (strlen(partialmsg_buf.get()) > 0)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 } // namespace Fixlator

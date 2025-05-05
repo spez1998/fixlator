@@ -1,12 +1,11 @@
 #include <getopt.h>
 #include <iostream>
 
-#include <base/UserData.h>
-
-constexpr const char *opts {"h012"};
+#include "src/base/UserData.h"
 
 Fixlator::UserData userdata;
 
+constexpr const char *opts {"h012"};
 static struct option long_options[] = {
     {"add",     required_argument, 0,  0 },
     {"append",  no_argument,       0,  0 },
@@ -35,9 +34,13 @@ int translate_raw_fix()
     //}
     //
     
-    userdata.SaveData(std::cin);
-    std::cout << userdata.GetNumSavedMessages();
-
+    userdata.SaveData(std::cin); 
+    std::cout << (int)userdata.HasStoredData() << std::endl;
+    if (userdata.HasStoredData()) {
+	;
+    } else {
+	std::cout << "Nothing in cin";
+    }
     return 0;
 }
 
@@ -53,8 +56,7 @@ int main(int argc, char **argv)
 
         c = getopt_long(argc, argv, opts, long_options, &option_index);
         if (c == -1) {
-            std::cout << "\nNo argument provided" << std::endl;
-            translate_raw_fix();
+	    translate_raw_fix();
             break;
         }
 

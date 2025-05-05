@@ -3,7 +3,7 @@
 #include <iostream>
 #include <memory>
 
-#include <base/UserData.h>
+#include "UserData.h"
 
 namespace Fixlator {
 
@@ -29,7 +29,7 @@ class Controller {
         }
 
         bool SavedUserDataExists() {
-            return userdata->HasSavedData();
+            return userdata->HasStoredData();
         }
 
         int GetNumSavedMsgs() {

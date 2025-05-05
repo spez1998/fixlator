@@ -39,4 +39,20 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(date)
 
-add_subdirectory("src")
+message(STATUS "Fetching googletest...")
+FetchContent_Declare(
+    googletest
+    GIT_REPOSITORY https://github.com/google/googletest
+    GIT_TAG main
+    GIT_SHALLOW ON
+)
+# For Windows: Prevent overriding the parent project's compiler/linker settings
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+FetchContent_MakeAvailable(googletest)
+
+add_library(hffix INTERFACE)
+
+add_subdirectory("src/base")
+add_subdirectory("src/cli")
+add_subdirectory("src/gui")
+add_subdirectory("test/base")
